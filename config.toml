@@ -1,13 +1,12 @@
-baseurl = "https://gohugo-amp.gohugohq.com/"
+baseurl = "http://blog.davidepucci.it/"
 languageCode = "en-us"
-title = "gohugo-amp starter theme"
-theme = "gohugo-amp"
+title = "Internet of shit"
 enableRobotsTXT = true
 
 [params]
     amp = true
     ampElements = ["amp-accordion","amp-ad","amp-analytics","amp-app-banner","amp-carousel","amp-iframe","amp-dynamic-css-classes","amp-form","amp-fx-flying-carpet","amp-image-lightbox","amp-lightbox","amp-sidebar","amp-social-share","amp-sticky-ad","amp-user-notification"]
-    themeColor = "#ff1d55"
+    themeColor = "#ffdddd"
     adsensePublisher = "ca-pub-123456789"
     googleAnalytics = "UA-12345678-123"
     appleItunesApp = "app-id=123456789, app-argument=app-name://link/to/app-content"
@@ -23,3 +22,73 @@ enableRobotsTXT = true
     publisherLogoHeight = 60
     stylesheetRegular = ["/base-styling.css"] # these styles are used when amp is disabled for a specific page
     javascriptRegular = ["/script.js"] # these scripts are used when amp is disabled for a specific page
+
+[[params.header.entry]]
+    name = "home"
+    label = "Home"
+    path = "/"
+[[params.header.entry]]
+    name = "coder"
+    label = "Coder"
+    path = "/coder"
+[[params.header.entry]]
+    name = "sysadmin"
+    label = "Sysadmin"
+    path = "/sysadmin"
+[[params.header.entry]]
+    name = "other"
+    label = "Other"
+    path = "/other"
+[[params.header.entry]]
+    name = "about"
+    label = "About"
+    path = "/about"
+
+[[params.footer.group]]
+    name = "group_1"
+    label = "Group 1"
+    path = "/"
+    [[params.footer.group.subgroup]]
+        name = "group_1_subgroup_1"
+        label = "Group1 Subgroup1"
+        path = "/"
+    [[params.footer.group.subgroup]]
+        name = "group_1_subgroup_2"
+        label = "Group1 Subgroup2"
+        path = "/"
+[[params.footer.group]]
+    name = "group_2"
+    label = "Group 2"
+    path = "/"
+    [[params.footer.group.subgroup]]
+        name = "group_2_subgroup_1"
+        label = "Group2 Subgroup1"
+        path = "/"
+    [[params.footer.group.subgroup]]
+        name = "group_2_subgroup_2"
+        label = "Group2 Subgroup2"
+        path = "/"
+    [[params.footer.group.subgroup]]
+        name = "group_2_subgroup_3"
+        label = "Group2 Subgroup3"
+        path = "/"
+    [[params.footer.group.subgroup]]
+        name = "group_2_subgroup_4"
+        label = "Group2 Subgroup4"
+        path = "/"
+[[params.footer.group]]
+    name = "group_3"
+    label = "Group 3"
+    path = "/"
+    [[params.footer.group.subgroup]]
+        name = "group_3_subgroup_1"
+        label = "Group3 Subgroup1"
+        path = "/"
+    [[params.footer.group.subgroup]]
+        name = "group_3_subgroup_2"
+        label = "Group3 Subgroup2"
+        path = "/"
+    [[params.footer.group.subgroup]]
+        name = "group_3_subgroup_3"
+        label = "Group3 Subgroup3"
+        path = "/"

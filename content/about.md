@@ -1,8 +1,8 @@
 +++
 date = "2016-11-20T14:28:41+02:00"
 draft = false
-title = "gohugo-amp"
-index = true
+title = "About us"
+about = true
 
 [sitemap]
   changefreq = "daily"
@@ -11,6 +11,6 @@ index = true
 
 +++
 
-# Sample title
+# Sample about
 
-Ok. Will manage to fuck this theme up.
+About body.

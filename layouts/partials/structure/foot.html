@@ -1,0 +1,20 @@
+<footer>
+    {{ range .Site.Params.footer.group }}
+        <div class="quarter-section">
+            <strong><a>{{ .label }}</a></strong>
+            <ul>
+                {{ range .subgroup }}
+                    <li><a href="{{ .path }}">{{ .label }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
+    {{ end }}
+</footer>
+
+{{ if ne .Params.amp.enable false }}
+{{ partial "amp/google-analytics" . }}
+</body>
+</html>
+{{ else }}
+{{ partial "structure/foot.no-amp" . }}
+{{ end }}
