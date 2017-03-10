@@ -1,7 +1,10 @@
 +++
+
 date = "2016-04-24T02:50:28+02:00"
 draft = false
 title = "What is Hugo?"
+tag = ["test1", "test2"]
+category = ["category"]
 
 +++
 

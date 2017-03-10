@@ -1,8 +1,8 @@
 {{ partial "head" . }}
 <div id="main-content" class="container">
-  <header>
+  <!-- <header>
     {{ partial "bloc/content/h1-title" . }}
-  </header>
+  </header> -->
   <ul class="container content">
     {{ range $index, .Paginator.Pages }}
       {{ .Render "list.li" }}

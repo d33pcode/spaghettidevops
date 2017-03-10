@@ -18,8 +18,8 @@ canonifyurls = true
 # "yaml", "toml", "json"
 metaDataFormat = "toml"
 
-# Theme to use (located in /themes/THEMENAME/)
 theme = "hugo-bootstrap-premium"
+
 # Pagination
 paginate = 10
 paginatePath = "page"
@@ -49,7 +49,7 @@ name = "paper"
 
 [params.popover]
 # This is a highly configurable popover form.
-enablepopover = true #enable or disable popover: true/false.
+enablepopover = false #enable or disable popover: true/false.
 posturl = "https://zapier.com/hooks/catch/1227563/" # Your zapier post hook.
 headerimage = "//placehold.it/1000x600"
 expirecookie = 5 #show it again after number of days to visitors that has not subscribed.
@@ -68,7 +68,7 @@ optin = true #opt-in: true/false
 
 [params]
 # You can use markdown here.
-BrandImage = "http://blog.appernetic.io/images/apperneticlogo.png" #top header brand image.
+BrandImage = "" #top header brand image.
 brand = "My awsome blog" # brand image alt text.
 topline = "few words about your site"
 footline = "code with <i class='fa fa-heart'></i>"
@@ -81,7 +81,7 @@ mailmunchid = "" # Mailmunch site id
 #sumomeid = "" # Sumome id
 
 # Show a sidebar menu
-showRightSidebar = true
+showRightSidebar = false
 # Select a syntax highlight.
 # Check the static/css/highlight directory for options.
 highlight = "default"
@@ -137,18 +137,18 @@ identifier = ""
 url = "/about"
 pre = "<i class='fa fa-road'aria-hidden='true'></i>"
 
-[[Languages.en.menu.footer]] # add  links to the bottom right corner.
-name = "Disclaimer"
-pre = "<i>&middot;</i>"
-identifier = "disclaimer"
-weight = 1
-url = "/disclaimer/"
+#[[Languages.en.menu.footer]] # add  links to the bottom right corner.
+#name = "Disclaimer"
+#pre = "<i>&middot;</i>"
+#identifier = "disclaimer"
+#weight = 1
+#url = "/disclaimer/"
 
-[[Languages.en.menu.footer]]
-name = "Terms"
-identifier = "terms"
-weight = 2
-url = "/terms/"
+#[[Languages.en.menu.footer]]
+#name = "Terms"
+#identifier = "terms"
+#weight = 2
+#url = "/terms/"
 
 [Languages.sv]
 weight = 2

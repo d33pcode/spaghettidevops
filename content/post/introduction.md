@@ -1,9 +1,11 @@
 +++
+
 date = "2016-04-21T02:50:28+02:00"
 draft = false
 title = "Introduction"
 
 +++
+
 Hugo is written in [Go][] with support for multiple platforms.
 
 The latest release can be found at [Hugo Releases](https://github.com/spf13/hugo/releases).
@@ -29,11 +31,6 @@ Ideally, you should install it somewhere in your `PATH` for easy use.
 
 On OS&nbsp;X, if you have [Homebrew](http://brew.sh/), installation is even
 easier: just run `brew update && brew install hugo`.
-
-For a more detailed explanation follow the corresponding installation guides:
-
-- [Installation on OS X]({{< relref "tutorials/installing-on-mac.md" >}})
-- [Installation on Windows]({{< relref "tutorials/installing-on-windows.md" >}})
 
 ### Installing Pygments (optional)
 

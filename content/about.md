@@ -7,6 +7,6 @@ draft = false
 
 +++
 
-# Showcase
+# About
 
-Showcase text in english.
+Simple about post.
