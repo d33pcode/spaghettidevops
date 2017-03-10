@@ -1,7 +1,0 @@
-{{ partial "seo/structured/website" . }}
-{{ partial "seo/structured/organization" . }}
-{{ partial "seo/structured/breadcrumb" . }}
-
-{{ if eq .Params.structured.type "Coder" }}{{ partial "seo/structured/coder" . }}{{ end }}
-{{ if eq .Params.structured.type "Sysadmin" }}{{ partial "seo/structured/sysadmin" . }}{{ end }}
-{{ if eq .Params.structured.type "Other" }}{{ partial "seo/structured/other" . }}{{ end }}

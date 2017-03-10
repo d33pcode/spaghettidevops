@@ -1,94 +1,180 @@
-baseurl = "http://blog.davidepucci.it/"
-languageCode = "en-us"
-title = "Internet of shit"
-enableRobotsTXT = true
+# hostname (and path) to the root eg. https://appernetic.github.io/
+baseurl = "/"
+
+DefaultContentLanguage = "en"
+
+# If you want all of the languages to be put below their respective language code,
+# enable DefaultContentLanguageInSubdir = true. Without enabling it english content
+# will be in the root and other languages in their respective subfolder such as /sv/.
+# See [Languages] settings at the end of this file.
+
+# Language
+languageCode = "en"
+
+# SES friendly url:s
+canonifyurls = true
+
+# Frontmatter format
+# "yaml", "toml", "json"
+metaDataFormat = "toml"
+
+# Theme to use (located in /themes/THEMENAME/)
+theme = "hugo-bootstrap-premium"
+# Pagination
+paginate = 10
+paginatePath = "page"
+
+# Enable Disqus integration
+disqusShortname = "shortname"
+
+
+[permalinks]
+post = "/:year/:month/:day/:slug/"
+code = "/:slug/"
+
+[taxonomies]
+tag = "tags"
+topic = "topics"
+
+[author]
+name = "yourname"
+email = "yourname@example.com"
+
+#
+# All parameters below here are optional and can be mixed and matched.
+#
+
+[params.theme]
+name = "paper"
+
+[params.popover]
+# This is a highly configurable popover form.
+enablepopover = true #enable or disable popover: true/false.
+posturl = "https://zapier.com/hooks/catch/1227563/" # Your zapier post hook.
+headerimage = "//placehold.it/1000x600"
+expirecookie = 5 #show it again after number of days to visitors that has not subscribed.
+cookiename = "mycookie1" #give the cookie a unique name variable (avoid spaces and strange characters).
+signupheader = "Join Our Newsletter"
+showmodaltimeout = 10000 #show popover modal after time interval in milliseconds.
+mouseleave = true #show popover when mouse leaves window: true/false.
+modalsize = "" #lg or sm. Empty is md. If phone is detected lg is used.
+imagedescription = "Placeholder image for this popover modal optin form"
+signuptext = "Signup today for free and be the first to get notified on new updates."
+inputplaceholder = "Enter your email"
+submitbutton = "Subscribe"
+successmessage = "Thanks for your subscription!"
+errormessage = "Submitting form failed!"
+optin = true #opt-in: true/false
 
 [params]
-    amp = true
-    ampElements = ["amp-accordion","amp-ad","amp-analytics","amp-app-banner","amp-carousel","amp-iframe","amp-dynamic-css-classes","amp-form","amp-fx-flying-carpet","amp-image-lightbox","amp-lightbox","amp-sidebar","amp-social-share","amp-sticky-ad","amp-user-notification"]
-    themeColor = "#ffdddd"
-    adsensePublisher = "ca-pub-123456789"
-    googleAnalytics = "UA-12345678-123"
-    appleItunesApp = "app-id=123456789, app-argument=app-name://link/to/app-content"
-    ampManifest = "/amp-manifest.json"
-    alternatePageName = "HUGO AMP"
-    organizationLogo = "https://gohugo-amp.gohugohq.com/logo.png"
-    organizationName = "gohugohq.com"
-    organizationAddress = "Some Street 123, 12345 City"
-    socialProfiles = ["http://www.facebook.com/your-profile","http://instagram.com/yourProfile","http://www.linkedin.com/in/yourprofile","http://plus.google.com/your_profile"]
-    publisherName = "gohugohq.com"
-    publisherLogo = "https://gohugo-amp.gohugohq.com/logo-publisher.png" # https://developers.google.com/search/docs/data-types/articles#logo-guidelines
-    publisherLogoWidth = 600
-    publisherLogoHeight = 60
-    stylesheetRegular = ["/base-styling.css"] # these styles are used when amp is disabled for a specific page
-    javascriptRegular = ["/script.js"] # these scripts are used when amp is disabled for a specific page
+# You can use markdown here.
+BrandImage = "http://blog.appernetic.io/images/apperneticlogo.png" #top header brand image.
+brand = "My awsome blog" # brand image alt text.
+topline = "few words about your site"
+footline = "code with <i class='fa fa-heart'></i>"
 
-[[params.header.entry]]
-    name = "home"
-    label = "Home"
-    path = "/"
-[[params.header.entry]]
-    name = "coder"
-    label = "Coder"
-    path = "/coder"
-[[params.header.entry]]
-    name = "sysadmin"
-    label = "Sysadmin"
-    path = "/sysadmin"
-[[params.header.entry]]
-    name = "other"
-    label = "Other"
-    path = "/other"
-[[params.header.entry]]
-    name = "about"
-    label = "About"
-    path = "/about"
+# Text for the top menu link, which goes to the root URL for the site.
+# Default (if omitted) is "Home".
+home = "home"
 
-[[params.footer.group]]
-    name = "group_1"
-    label = "Group 1"
-    path = "/"
-    [[params.footer.group.subgroup]]
-        name = "group_1_subgroup_1"
-        label = "Group1 Subgroup1"
-        path = "/"
-    [[params.footer.group.subgroup]]
-        name = "group_1_subgroup_2"
-        label = "Group1 Subgroup2"
-        path = "/"
-[[params.footer.group]]
-    name = "group_2"
-    label = "Group 2"
-    path = "/"
-    [[params.footer.group.subgroup]]
-        name = "group_2_subgroup_1"
-        label = "Group2 Subgroup1"
-        path = "/"
-    [[params.footer.group.subgroup]]
-        name = "group_2_subgroup_2"
-        label = "Group2 Subgroup2"
-        path = "/"
-    [[params.footer.group.subgroup]]
-        name = "group_2_subgroup_3"
-        label = "Group2 Subgroup3"
-        path = "/"
-    [[params.footer.group.subgroup]]
-        name = "group_2_subgroup_4"
-        label = "Group2 Subgroup4"
-        path = "/"
-[[params.footer.group]]
-    name = "group_3"
-    label = "Group 3"
-    path = "/"
-    [[params.footer.group.subgroup]]
-        name = "group_3_subgroup_1"
-        label = "Group3 Subgroup1"
-        path = "/"
-    [[params.footer.group.subgroup]]
-        name = "group_3_subgroup_2"
-        label = "Group3 Subgroup2"
-        path = "/"
-    [[params.footer.group.subgroup]]
-        name = "group_3_subgroup_3"
-        label = "Group3 Subgroup3"
-        path = "/"
+mailmunchid = "" # Mailmunch site id
+#sumomeid = "" # Sumome id
+
+# Show a sidebar menu
+showRightSidebar = true
+# Select a syntax highlight.
+# Check the static/css/highlight directory for options.
+highlight = "default"
+
+# Google Analytics.
+googleAnalytics = "Your Google Analytics tracking code"
+
+# Sidebar social links.
+github = "Myprofile" # Your Github profile ID
+bitbucket = "" # Your Bitbucket profile ID
+linkedin = "" # Your LinkedIn profile ID (from public URL)
+googleplus = "Myprofile" # Your Google+ profile ID
+facebook = "Myprofile" # Your Facebook profile ID
+twitter = "Myprofile" # Your Twitter profile ID
+youtube = ""  # Your Youtube channel ID
+flattr = ""  # populate with your flattr uid
+
+[blackfriday]
+angledQuotes = true
+fractions = false
+hrefTargetBlank = false
+latexDashes = true
+plainIdAnchors = true
+extensions = []
+extensionmask = []
+
+# Menus
+# If you want active menu items highlighted for internal pages don't add them here, they need to be added in each files front matter.
+# like this:
+#[menu]
+#     [menu.main]
+#        name = "Showcase"
+#        weight = 3
+#        identifier = "showcase"
+
+[Languages]
+[Languages.en]
+weight = 1
+copyright = "(c) 2017"
+title = "Internet of Shit" # Site title
+
+[[Languages.en.menu.main]]
+name = "Articles"
+weight = 1
+identifier = "post"
+url = "/post/"
+pre = "<i class='fa fa-book' aria-hidden='true'></i>"
+
+[[Languages.en.menu.main]]
+name = "About"
+weight = 2
+identifier = ""
+url = "/about"
+pre = "<i class='fa fa-road'aria-hidden='true'></i>"
+
+[[Languages.en.menu.footer]] # add  links to the bottom right corner.
+name = "Disclaimer"
+pre = "<i>&middot;</i>"
+identifier = "disclaimer"
+weight = 1
+url = "/disclaimer/"
+
+[[Languages.en.menu.footer]]
+name = "Terms"
+identifier = "terms"
+weight = 2
+url = "/terms/"
+
+[Languages.sv]
+weight = 2
+title = "Min blog" # Site title
+copyright = "(c) 2016 Alla rättigheter"
+
+[[Languages.sv.menu.main]]
+name = "Bloggen"
+pre = ""
+weight = 2
+identifier = "post"
+url = "/sv/post/"
+
+[[Languages.sv.menu.footer]] # add  links to the bottom right corner.
+name = "Ansvarsfriskrivning"
+pre = "<i>&middot;</i>"
+identifier = "friskrivning"
+weight = 1
+url = "/sv/friskrivning/"
+
+[[Languages.sv.menu.footer]]
+name = "Vilkor"
+identifier = "vilkor"
+weight = 2
+url = "/sv/vilkor/"
+
+[Languages.sv.taxonomies]
+tag = "Taggar"
+topic = "Ämne"
