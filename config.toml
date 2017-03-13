@@ -71,7 +71,7 @@ optin = true #opt-in: true/false
 BrandImage = "/touch-icon-144-precomposed.png" #top header brand image.
 brand = "My awsome blog" # brand image alt text.
 topline = "few words about your site"
-footline = "code with <i class='fa fa-heart'></i>"
+footline = "random"
 
 # Text for the top menu link, which goes to the root URL for the site.
 # Default (if omitted) is "Home".
