@@ -124,18 +124,25 @@ copyright = "(c) 2017"
 title = "SpaghettiDevops" # Site title
 
 [[Languages.en.menu.main]]
-name = "Articles"
+name = "Home"
 weight = 1
+identifier = "home"
+url = ""
+pre = "<i class='fa fa-home' aria-hidden='true'></i>"
+
+[[Languages.en.menu.main]]
+name = "Articles"
+weight = 2
 identifier = "post"
 url = "/post/"
 pre = "<i class='fa fa-book' aria-hidden='true'></i>"
 
 [[Languages.en.menu.main]]
 name = "About"
-weight = 2
+weight = 3
 identifier = ""
 url = "/about"
-pre = "<i class='fa fa-road'aria-hidden='true'></i>"
+pre = "<i class='fa fa-user'aria-hidden='true'></i>"
 
 #[[Languages.en.menu.footer]] # add  links to the bottom right corner.
 #name = "Disclaimer"
