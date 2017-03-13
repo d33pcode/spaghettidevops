@@ -10,9 +10,9 @@
         </button>
         <!-- <a class="navbar-brand" href="{{.LanguagePrefix }}"> -->
           {{ if ( ne .Site.Params.BrandImage "" ) }}
-          <a class="navbar-brand-img" href="{{ .Site.BaseURL | relLangURL}}">
+          <a class="navbar-brand-img" href="{{ .Site.BaseURL | relLangURL}}" style="color: #24292e;">
             <img alt="{{ .Site.Params.brand }}" src="{{ .Site.Params.BrandImage }}">
-            {{ end }}
+		  {{ end }}
           </a>
           <h4>{{ .Site.Title }}</h4>
         </div>

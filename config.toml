@@ -127,7 +127,7 @@ title = "SpaghettiDevops" # Site title
 name = "Home"
 weight = 1
 identifier = "home"
-url = ""
+url = "/"
 pre = "<i class='fa fa-home' aria-hidden='true'></i>"
 
 [[Languages.en.menu.main]]
