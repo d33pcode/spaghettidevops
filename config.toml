@@ -121,7 +121,7 @@ extensionmask = []
 [Languages.en]
 weight = 1
 copyright = "(c) 2017"
-title = "Internet of Shit" # Site title
+title = "SpaghettiDevops" # Site title
 
 [[Languages.en.menu.main]]
 name = "Articles"
