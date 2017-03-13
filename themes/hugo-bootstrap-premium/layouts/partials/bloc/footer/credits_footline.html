@@ -1,6 +1,9 @@
 {{ if eq .Site.Params.footline "random" }}
+<div class="container footline">
+    <small id="footerLine"></small>
+</div>
 <script type="text/javascript">
-	function randomQuote() {
+	(function randomQuote() {
 		var vaffanculopanunzio = [
 			"We love OpenSource, especially yours", 	"Good code is awesome, but we don't have time!", 
 			"A blog about segfaults and other shit", 	"This is not the footer you are looking for",
@@ -12,12 +15,8 @@
 		];
 		var rand = Math.floor(Math.random() * vaffanculopanunzio.length);
 		document.getElementById("footerLine").innerHTML = vaffanculopanunzio[rand];
-	}
-	window.onload = randomQuote;
+	})();
 </script>
-<div class="container footline">
-    <small id="footerLine"></small>
-</div>
 {{ else if ne .Site.Params.footline "" }}
 <div class="container footline">
     <small>{{ partial "modules/site/footline" . }}</small>
