@@ -98,9 +98,9 @@ div.navbar-header>h4 {
     font-size: 17px;
     text-transform: uppercase;
     font-weight: bold;
-    position: absolute;
-    top: 12.5px;
-    left: 120px;
+    display: inline-block;
+    margin-left: 10px;
+    line-height: 1em;
 }
 
 @media screen and (max-width: 768px) {
@@ -111,7 +111,7 @@ div.navbar-header>h4 {
         width: 58px;
     }
     div.navbar-header>h4 {
-        left: 75px;
+        margin-left: 5px;
     }
 }
 
