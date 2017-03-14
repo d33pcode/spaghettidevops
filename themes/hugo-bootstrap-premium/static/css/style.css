@@ -200,5 +200,5 @@ ul.container li {
 }
 
 div#placement-bottom {
-    display: none;
+    display: none !important;
 }
