@@ -42,6 +42,10 @@ time {
     padding-bottom: 1rem;
 }
 
+.footer #footerLine {
+    color: rgba(0, 0, 0, 0.5);
+}
+
 body>.container {
     padding: 90px 30px 0;
 }

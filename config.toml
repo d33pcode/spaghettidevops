@@ -69,7 +69,6 @@ optin = true #opt-in: true/false
 [params]
 # You can use markdown here.
 BrandImage = "/touch-icon-144-precomposed.png" #top header brand image.
-brand = "My awsome blog" # brand image alt text.
 topline = "few words about your site"
 footline = "random"
 

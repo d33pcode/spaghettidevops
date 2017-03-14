@@ -5,16 +5,16 @@
 <script type="text/javascript">
 	(function randomQuote() {
 		var vaffanculopanunzio = [
-			"We love OpenSource, especially yours", 	"Good code is awesome, but we don't have time!", 
+			"We love OpenSource, especially yours", 	"Good code is awesome, but we don't have time!",
 			"A blog about segfaults and other shit", 	"This is not the footer you are looking for",
 			"Hardcoded by a bunch of busy geeks",		"403 Forbidden: You don't have rights to access this footer",
 			"We apologise for d33pcode's sad jokes", 	"Pacifism is good, at least when it comes to git conflicts",
 			"cat: footer.txt: Permission denied",		"It’s not a bug – it’s an undocumented feature",
 			"To iterate is human, to recurse divine",	"Exception in thread \"main\" java.lang.IllegalFooterException",
-			"we like to have rich friends, but we usually don't give them money", "Just ignore this footer"
+			"We like to have rich friends, but we usually don't give them money", "Just ignore this footer"
 		];
 		var rand = Math.floor(Math.random() * vaffanculopanunzio.length);
-		document.getElementById("footerLine").innerHTML = vaffanculopanunzio[rand];
+		document.getElementById("footerLine").innerHTML = vaffanculopanunzio[rand] + ".";
 	})();
 </script>
 {{ else if ne .Site.Params.footline "" }}
