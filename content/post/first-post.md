@@ -1,8 +1,6 @@
 +++
 type = "post"
 title = "Welcome"
-keywords = ["key","words"]
-description = "description"
 draft = false
 author = "streambinder - bizio - d33pcode"
 date = "2017-03-14T12:27:04+01:00"
