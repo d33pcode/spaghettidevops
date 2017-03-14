@@ -198,3 +198,7 @@ small.params-tags>a:hover, small.params-tags>a:focus {
 ul.container li {
     list-style-type: none;
 }
+
+div#placement-bottom {
+    display: none;
+}
