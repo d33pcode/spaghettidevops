@@ -1,7 +1,7 @@
 +++
 
 date = "2016-04-24T02:50:28+02:00"
-draft = false
+draft = true
 author = "streambinder"
 title = "What is Hugo?"
 tags = ["test1", "test2"]
