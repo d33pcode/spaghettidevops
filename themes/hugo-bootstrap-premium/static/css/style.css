@@ -194,3 +194,7 @@ small.params-tags>a:hover, small.params-tags>a:focus {
     color: #0366d6;
     background-color: #ddeeff !important;
 }
+
+ul.container li {
+    list-style-type: none;
+}
