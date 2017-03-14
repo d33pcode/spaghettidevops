@@ -86,7 +86,7 @@ showRightSidebar = false
 highlight = "default"
 
 # Google Analytics.
-googleAnalytics = "Your Google Analytics tracking code"
+googleAnalytics = "UA-93718530-1"
 
 # Sidebar social links.
 github = "Myprofile" # Your Github profile ID
@@ -119,7 +119,7 @@ extensionmask = []
 [Languages]
 [Languages.en]
 weight = 1
-copyright = "(c) 2017. All rights reserved." # TODO: dynamic year evaluation 
+copyright = "(c) 2017. All rights reserved." # TODO: dynamic year evaluation
 title = "SpaghettiDevops" # Site title
 
 [[Languages.en.menu.main]]
