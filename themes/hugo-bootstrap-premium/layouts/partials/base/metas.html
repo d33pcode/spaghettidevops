@@ -66,6 +66,14 @@
 <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Title }}" />
 {{ end }}
 <link rel="canonical" href="{{ .Permalink }}" />
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
-<link rel="icon" href="/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="/icon/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/icon/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/icon/manifest.json">
+<link rel="mask-icon" href="/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/icon/favicon.ico">
+<meta name="msapplication-config" content="/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/icon/touch-icon-144-precomposed.png">
+<link rel="icon" href="/icon/favicon.png">
 {{ .Hugo.Generator }}

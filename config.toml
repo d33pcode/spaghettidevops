@@ -68,7 +68,7 @@ optin = true #opt-in: true/false
 
 [params]
 # You can use markdown here.
-BrandImage = "/touch-icon-144-precomposed.png" #top header brand image.
+BrandImage = "/icon/touch-icon-144-precomposed.png" #top header brand image.
 topline = "few words about your site"
 footline = "random"
 
@@ -119,7 +119,7 @@ extensionmask = []
 [Languages]
 [Languages.en]
 weight = 1
-copyright = "(c) 2017"
+copyright = "Copyright 2017. All rights reserved." # TODO: dynamic year evaluation 
 title = "SpaghettiDevops" # Site title
 
 [[Languages.en.menu.main]]
