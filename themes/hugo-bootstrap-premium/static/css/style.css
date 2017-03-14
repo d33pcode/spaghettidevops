@@ -178,3 +178,19 @@ iframe {
 #Email.fieldInvalid {
     border: 1px solid #ff0000;
 }
+
+small.params-author, small.params-tags {
+    margin-left: 7px;
+}
+
+small.params-tags>a {
+    color: #0366d6;
+    font-size: 12px;
+    font-weight: 400;
+    background-color: #f1f8ff;
+}
+
+small.params-tags>a:hover, small.params-tags>a:focus {
+    color: #0366d6;
+    background-color: #ddeeff !important;
+}
