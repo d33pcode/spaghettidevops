@@ -50,8 +50,8 @@ Effective result? _randomguy_ is the new systems administrator of that machine. 
 
 Fortunately, it hasn't gone that way. But as you may understand, that was a very critical situation, in which every machine service died, as no more able to read/write any of its files, _sshd_, too.
 
-While both shouting against myself and searching on Google for something that could save me from getting fired, found something really useful using *rpm*, *RedHat*'s package manager. Oh, if you
-In fact, 90% of the filesystem could be repaired by resetting *perms* and *ugids* using packages default specifications:
+While both shouting against myself and searching on Google for something that could save me from getting fired, found something really useful using *rpm*, *RedHat*'s package manager.
+In fact, 90% of the filesystem could be repaired by resetting *perms* and *ugids* referring to packages default specifications:
 ```bash
 for package in $(rpm -qa); do
     rpm --setperms ${package}
@@ -59,9 +59,10 @@ for package in $(rpm -qa); do
 done
 ```
 
-Obviously it probably won't fix anything, but the most of it.
+Obviously it probably won't fix anything, but most of it.
+
 **NB**: this applies only on *RPM*-based *linux* distributions.
 
-Finally, a really, really important hint about one of most useful utilies I found: **use scheduled getfacl**, it will save you from situations like the one above. *man* *docet*: *"for each file, getfacl displays the file name, owner, the group, and the Access Control List (ACL)"*. It's actually really useful to backup file/path permissions status, and - in case you burst again the filesystem - to restore them, this time using *setfacl* (from the same package). Schedule a daily backup of filesystem permissions status, leaning to the *crontab* utility: `crontab -e`. The *crontab* instruction `0 0 * * * getfacl -R /path/to/folderorfile > /root/backup.acl` will execute the backup daily at *00:00*.
+Finally, a really, really important hint about one of most useful utilies I found: **use scheduled getfacl**, it will save you from situations like the one above. Its *man* *docet*: *"for each file, getfacl displays the file name, owner, the group, and the Access Control List (ACL)"*. It's actually really useful to backup file/path permissions status, and - in case you burst again the filesystem - to restore them  using *setfacl* (from the same package). Schedule a daily backup of filesystem permissions status, leaning to the *crontab* utility: `crontab -e`. The *crontab* instruction `0 0 * * * getfacl -R / > /root/backup.acl` will execute the backup daily at *00:00*.
 
 This way you'll have a daily backup of filesystem permissions and if you have to restore the situation due to a catastrophic mistake as the one I made, just run `setfacl --restore=/root/backup.acl` and you're good to go and forgot about how stupid you are.
