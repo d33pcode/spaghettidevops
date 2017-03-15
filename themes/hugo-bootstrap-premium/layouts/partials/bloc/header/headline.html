@@ -1,23 +1,20 @@
 {{ if eq .Site.Params.headline "random" }}
 <small id="headerLine"></small>
 <script type="text/javascript">
-    (function randomQuote() {
-        var vaffanculopanunzio = [
-            "Just ignore this header.",
-            "Hey! It compiles! Ship it.",
-            "The more I C, the less I see.",
-            "Hardcoded by a bunch of busy geeks.",
-            "cat: header.txt: Permission denied.",
-            "My attitude isn’t bad. It’s in beta.",
-            "We love OpenSource, especially yours.",
-            "We apologise for d33pcode's sad jokes.",
-            "A blog about segfaults and other shit.",
-            "To iterate is human, to recurse divine.",
-        ];
-        var rand = Math.floor(Math.random() * vaffanculopanunzio.length);
-        document.getElementById("headerLine").innerHTML = vaffanculopanunzio[rand];
-    })();
+    $(function() {
+        fuckd33pcode = [];
+        catchylines_specific = {{ .Site.Data.CatchyLines }}['header'];
+        catchylines_generic = {{ .Site.Data.CatchyLines }}['both'];
+        if (catchylines_specific != null)
+            fuckd33pcode = fuckd33pcode.concat(catchylines_specific);
+        if (catchylines_generic != null)
+            fuckd33pcode = fuckd33pcode.concat(catchylines_generic);
+        var rand = Math.floor(Math.random() * fuckd33pcode.length);
+        document.getElementById("headerLine").innerHTML = fuckd33pcode[rand].replace("%header-or-footer%", "header");
+    });
 </script>
+{{ else if ne .Site.Params.headline "" }}
+<small>{{ partial "modules/site/headline" . }}</small>
 {{ else }}
 <small id="headerLine">Is anyone able to write a decent headline?</small>
 {{ end }}
