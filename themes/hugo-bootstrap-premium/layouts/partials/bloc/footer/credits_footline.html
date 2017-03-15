@@ -2,42 +2,16 @@
 <div class="container footline">
     <small id="footerLine"></small>
 </div>
-<script type="text/javascript">
-	(function randomQuote() {
-		var vaffanculopanunzio = [
-            "Just ignore this footer.",
-            "Hey! It compiles! Ship it.",
-            "The more I C, the less I see.",
-            "Hardcoded by a bunch of busy geeks.",
-            "cat: footer.txt: Permission denied.",
-            "My attitude isn’t bad. It’s in beta.",
-			"We love OpenSource, especially yours.",
-            "We apologise for d33pcode's sad jokes.",
-            "A blog about segfaults and other shit.",
-            "To iterate is human, to recurse divine.",
-            "CAPS LOCK – Preventing Login Since 1980.",
-            "Black holes are where God divided by zero.",
-            "This is not the footer you are looking for.",
-            "The truth is out there. Anybody got the URL?",
-            "Good code is awesome, but we don't have time!",
-            "It’s not a bug – it’s an undocumented feature.",
-            "Penguins love cold, they wont survive the sun.",
-            "I would tell you a UDP joke, but you might not get it.",
-            "Pacifism is good, at least when it comes to git conflicts.",
-            "403 Forbidden: You don't have rights to access this footer.",
-            "Exception in thread \"main\" java.lang.IllegalFooterException.",
-            "We like to have rich friends, but we usually don't give them money.",
-            "In order to understand recursion you must first understand recursion.",
-            "I would love to change the world, but they won’t give me the source code.",
-            "There are 10 types of people in the world: those who understand binary, and those who don't.",
-            "When you die and go to heaven, God finally tells you the advantages of a segmented memory architecture."
-		];
-		var rand = Math.floor(Math.random() * vaffanculopanunzio.length);
-		document.getElementById("footerLine").innerHTML = vaffanculopanunzio[rand];
-	})();
-</script>
 {{ else if ne .Site.Params.footline "" }}
 <div class="container footline">
     <small>{{ partial "modules/site/footline" . }}</small>
 </div>
 {{ end }}
+
+<script type="text/javascript">
+  $(function(){
+    fuckd33pcode = {{.Site.Data.catchylines}}['footer']
+    var rand = Math.floor(Math.random() * fuckd33pcode.length);
+    document.getElementById("footerLine").innerHTML = fuckd33pcode[rand];
+  });
+</script>
