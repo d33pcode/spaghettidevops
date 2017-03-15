@@ -124,22 +124,31 @@ a.navbar-brand-img>img {
     background-color: rgba(255, 255, 255, 0.7) !important;
 }
 
-a.navbar-brand-img>img, div.navbar-header>h4 {
+a.navbar-brand-img>img {
+    vertical-align: bottom;
     display: inline;
 }
 
-div.navbar-header>h4 {
+div.header-title {
+    display: inline-block;
+}
+
+div.navbar-header>div.header-title>h4 {
     color: rgba(255, 255, 255, 0.8);
     font-size: 17px;
     text-transform: uppercase;
     font-weight: bold;
-    display: inline-block;
-    margin-left: 10px;
-    line-height: 1em;
+    position: absolute;
+    top: 2px;
 }
 
-a.navbar-brand-img>img {
-    vertical-align: bottom;
+div.navbar-header>div.header-title>h4, div.navbar-header>div.header-title>small {
+    margin-left: 10px;
+}
+
+div.navbar-header>div.header-title>small {
+    position: absolute;
+    top: 30px;
 }
 
 img {
@@ -225,11 +234,14 @@ ul.container li {
         margin-right: 15px;
         width: 58px;
     }
-    div.navbar-header>h4 {
-        margin-left: 5px;
+    div.navbar-header>div.header-title>h4, div.navbar-header>div.header-title>small {
+        margin-left: -5px;
     }
     small.params-tags {
         display: block;
         margin: -10px 0 10px;
+    }
+    time, small.params-author {
+        font-size: 11px;
     }
 }

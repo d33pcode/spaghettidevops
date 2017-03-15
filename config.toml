@@ -74,7 +74,7 @@ optin = true #opt-in: true/false
 [params]
 # You can use markdown here.
 BrandImage = "/icon/touch-icon-144-precomposed.png" #top header brand image.
-topline = "few words about your site"
+headline = "random"
 footline = "random"
 
 # Text for the top menu link, which goes to the root URL for the site.
