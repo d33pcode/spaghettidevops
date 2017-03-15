@@ -5,7 +5,7 @@ title = "Messed up permissions. Fired."
 draft = false
 author = "streambinder"
 date = "2017-03-15T15:28:04+01:00"
-tags = ["systems administrator", "server", "linux"]
+tags = ["sysadmin", "server", "linux", "redhat"]
 
 +++
 
