@@ -1,6 +1,6 @@
 # hostname (and path) to the root eg. https://appernetic.github.io/
 baseurl = "/"
-PygmentsCodeFences = true
+PygmentsCodeFences = "false"
 DefaultContentLanguage = "en"
 
 # If you want all of the languages to be put below their respective language code,
