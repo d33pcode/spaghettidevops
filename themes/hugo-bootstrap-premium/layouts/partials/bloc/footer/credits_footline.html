@@ -1,24 +1,22 @@
 {{ if eq .Site.Params.footline "random" }}
-
 <div class="container footline">
     <small id="footerLine"></small>
 </div>
+<script type="text/javascript">
+    $(function() {
+        fuckd33pcode = [];
+        catchylines_specific = {{ .Site.Data.CatchyLines }}['footer'];
+        catchylines_generic = {{ .Site.Data.CatchyLines }}['both'];
+        if (catchylines_specific != null)
+            fuckd33pcode = fuckd33pcode.concat(catchylines_specific);
+        if (catchylines_generic != null)
+            fuckd33pcode = fuckd33pcode.concat(catchylines_generic);
+        var rand = Math.floor(Math.random() * fuckd33pcode.length);
+        document.getElementById("footerLine").innerHTML = fuckd33pcode[rand].replace("%header-or-footer%", "footer");
+    });
+</script>
 {{ else if ne .Site.Params.footline "" }}
 <div class="container footline">
     <small>{{ partial "modules/site/footline" . }}</small>
 </div>
 {{ end }}
-
-<script type="text/javascript">
-$(function() {
-  fuckd33pcode = [];
-  catchylines_specific = {{ .Site.Data.CatchyLines }}['footer'];
-  catchylines_generic = {{ .Site.Data.CatchyLines }}['both'];
-  if (catchylines_specific != null)
-  fuckd33pcode = fuckd33pcode.concat(catchylines_specific);
-  if (catchylines_generic != null)
-  fuckd33pcode = fuckd33pcode.concat(catchylines_generic);
-  var rand = Math.floor(Math.random() * fuckd33pcode.length);
-  document.getElementById("footerLine").innerHTML = fuckd33pcode[rand].replace("%header-or-footer%", "footer");
-});
-</script>
