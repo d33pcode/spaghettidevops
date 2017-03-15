@@ -33,14 +33,8 @@ i.pre-title {
     margin-top: 3px;
 }
 
-p.lead, p.lead>a {
-    display: inline-block;
-}
-
-p.lead {
-    position: absolute;
-    right: 0;
-    top: 5px;
+p.lead>a {
+    float: right;
 }
 
 p.lead>a, p.lead>a:hover, p.lead>a:focus, p.lead>a:active {
