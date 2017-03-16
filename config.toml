@@ -1,5 +1,4 @@
-# hostname (and path) to the root eg. https://appernetic.github.io/
-baseurl = "/"
+baseurl = "https://spaghettidevops.com/"
 PygmentsCodeFences = "false"
 DefaultContentLanguage = "en"
 
