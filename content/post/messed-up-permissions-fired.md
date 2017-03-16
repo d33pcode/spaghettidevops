@@ -5,7 +5,7 @@ title = "Messed up permissions. Fired."
 draft = false
 author = "streambinder"
 date = "2017-03-15T15:28:04+01:00"
-tags = ["systems administrator", "server", "linux"]
+tags = ["sysadmin", "server", "linux", "redhat"]
 
 +++
 
@@ -28,13 +28,13 @@ done
 
 Ok, nothing evidently bad, if `first_manipulation` and `latter_manipulation` do their job. They currently didn't.
 
-Actually, I wrote a `latter_manipulation` that brought my `mailbox_folder` to be non-valued, or - even worse - valued with `.`. I wasn't expected to handle a non-valued variable, though. The result? Assume that *domain.net* contained three mailboxes: *streambinder*, *d33pcode*, *bizio* and *randomguy*. My `while` cycle would do three iterations:
+Actually, I wrote a `latter_manipulation` that brought my `mailbox_folder` to be non-valued, or - even worse - valued with `.`. I wasn't expected to handle a non-valued variable, though. The result? Assume that *domain.net* contained three mailboxes: *streambinder*, *d33pcode*, *BiziOS* and *randomguy*. My `while` cycle would do three iterations:
 
 iteration | mailbox         | instructions
 :-------: | :-------------- | :----
 1         | *streambinder*  | `cd . ; chown -R streambinder . ; cd ..`
 2         | *d33pcode*      | `cd . ; chown -R d33pcode . ; cd ..`
-3         | *bizio*         | `cd . ; chown -R bizio . ; cd ..`
+3         | *BiziOS*         | `cd . ; chown -R BiziOS . ; cd ..`
 4         | *randomguy*     | `cd . ; chown -R randomguy . ; cd ..`
 
  So, starting from `/var/vmail/domain.net`, translated:
@@ -43,15 +43,15 @@ iteration | instructions
 :-------: | :---------------------------------------------
 1         | `chown -R streambinder /var/vmail/domain.net/`
 2         | `chown -R d33pcode /var/vmail/`
-3         | `chown -R bizio /var/`
+3         | `chown -R BiziOS /var/`
 4         | `chown -R randomguy /`
 
 Effective result? _randomguy_ is the new systems administrator of that machine. He ownes everything on the machine. What about me? I'm fired.
 
 Fortunately, it hasn't gone that way. But as you may understand, that was a very critical situation, in which every machine service died, as no more able to read/write any of its files, _sshd_, too.
 
-While both shouting against myself and searching on Google for something that could save me from getting fired, found something really useful using *rpm*, *RedHat*'s package manager. Oh, if you
-In fact, 90% of the filesystem could be repaired by resetting *perms* and *ugids* using packages default specifications:
+While both shouting against myself and searching on Google for something that could save me from getting fired, found something really useful using *rpm*, *RedHat*'s package manager.
+In fact, 90% of the filesystem could be repaired by resetting *perms* and *ugids* referring to packages default specifications:
 ```bash
 for package in $(rpm -qa); do
     rpm --setperms ${package}
@@ -59,9 +59,10 @@ for package in $(rpm -qa); do
 done
 ```
 
-Obviously it probably won't fix anything, but the most of it.
+Obviously it probably won't fix anything, but most of it.
+
 **NB**: this applies only on *RPM*-based *linux* distributions.
 
-Finally, a really, really important hint about one of most useful utilies I found: **use scheduled getfacl**, it will save you from situations like the one above. *man* *docet*: *"for each file, getfacl displays the file name, owner, the group, and the Access Control List (ACL)"*. It's actually really useful to backup file/path permissions status, and - in case you burst again the filesystem - to restore them, this time using *setfacl* (from the same package). Schedule a daily backup of filesystem permissions status, leaning to the *crontab* utility: `crontab -e`. The *crontab* instruction `0 0 * * * getfacl -R /path/to/folderorfile > /root/backup.acl` will execute the backup daily at *00:00*.
+Finally, a really, really important hint about one of most useful utilies I found: **use scheduled getfacl**, it will save you from situations like the one above. Its *man* *docet*: *"for each file, getfacl displays the file name, owner, the group, and the Access Control List (ACL)"*. It's actually really useful to backup file/path permissions status, and - in case you burst again the filesystem - to restore them  using *setfacl* (from the same package). Schedule a daily backup of filesystem permissions status, leaning to the *crontab* utility: `crontab -e`. The *crontab* instruction `0 0 * * * getfacl -R / > /root/backup.acl` will execute the backup daily at *00:00*.
 
 This way you'll have a daily backup of filesystem permissions and if you have to restore the situation due to a catastrophic mistake as the one I made, just run `setfacl --restore=/root/backup.acl` and you're good to go and forgot about how stupid you are.
