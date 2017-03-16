@@ -71,6 +71,11 @@ successmessage = "Thanks for your subscription!"
 errormessage = "Submitting form failed!"
 optin = true #opt-in: true/false
 
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
 [params]
 # You can use markdown here.
 BrandImage = "/icon/touch-icon-144-precomposed.png" #top header brand image.
