@@ -50,52 +50,37 @@ import errno
 import socket
 import time
 
-
 class TelnetTimeoutException(Exception):
-
     def __init__(self, host, timeout):
         super(TelnetTimeoutException, self).__init__("No response in " + str(timeout) + " seconds from " + str(host) + ".")
 
-
 class TelnetClosedException(Exception):
-
     def __init__(self, host):
         super(TelnetClosedException, self).__init__("Socket already closed by " + str(host) + ".")
 
-
 class TelnetNoRouteException(Exception):
-
     def __init__(self, host):
         super(TelnetNoRouteException, self).__init__("No route to host " + str(host) + ".")
 
-
 class TelnetBlacklistedException(Exception):
-
     def __init__(self, host, code, message):
         super(TelnetBlacklistedException, self).__init__(str(host) + " blacklisted you: \"[" + str(code) + "]" + str(message) + "\".")
 
-
 class TelnetGreylistedException(Exception):
-
     def __init__(self, host, code, message):
         super(TelnetGreylistedException, self).__init__(str(host) + " greylisted you: \"[" + str(code) + "]" + str(message) + "\".")
 
-
 class TelnetTooMuchRcptsException(Exception):
-
     def __init__(self, host):
         super(TelnetTooMuchRcptsException, self).__init__("You've sent too much RCPT messages to " + str(host) + " (" + str(Telnet.SOCK_MAX_RCPTS) + ").")
 
-
 class TelnetReply():
-
     def __init__(self, reply=None):
         if reply is not None:
             reply = reply.replace('\n', '').replace('\r', '')
         self.code = self.parseCode(reply)
         self.host = self.parseHost(reply)
         self.msg = self.parseMsg(reply)
-
     def parseCode(self, reply):
         try:
             if reply[0:3].isdigit():
@@ -103,27 +88,22 @@ class TelnetReply():
         except:
             pass
         return "000"
-
     def parseHost(self, reply):
         try:
             return str(reply.split()[1])
         except:
             pass
         return "unknown"
-
     def parseMsg(self, reply):
         try:
             return str(" ".join(reply.split()[2:]))
         except:
             pass
         return ""
-
     def isEmpty(self):
         return self.code == "000" and self.msg == ""
 
-
 class Telnet():
-
     SOCK_MAX_RCPTS = 100
     SOCK_READ_INTERVAL = 5 # second(s)
     SOCK_TIMEOUT = 30 # second(s)
@@ -131,7 +111,6 @@ class Telnet():
     PHASE_HELO = 1
     PHASE_MAILFROM = 2
     PHASE_RCPT = 3
-
     def __init__(self, to_h, to_p, from_h, from_p=0, timeout=Telnet.SOCK_TIMEOUT):
         self.to = tuple([to_h, to_p])
         self.me = tuple([from_h, from_p])
@@ -140,32 +119,23 @@ class Telnet():
         self.phase = Telnet.PHASE_NEWBORN
         self.rcpts = 0
         self.connect()
-
     def to_host(self):
         return self.to[0]
-
     def to_port(self):
         return self.to[1]
-
     def me_host(self):
         return self.me[0]
-
     def me_port(self):
         return self.me[1]
-
-    def prefix(self):
-        return "[" + str(self.to_host()) + "] "
-
     def connect(self):
         if self.sock is None:
-            super(Telnet, self).log_debug(self.prefix() +
-                                          "Instanciating socket between " + str(self.me_host()) + ":" + str(self.me_port()) + " and " + str(self.to_host()) + ":" + str(self.to_port()))
+            print "DEBUG: Instanciating socket between " + str(self.me_host()) + ":" + str(self.me_port()) + " and " + str(self.to_host()) + ":" + str(self.to_port())
             try:
                 self.sock = socket.create_connection(self.to, self.timeout, self.me)
-                super(Telnet, self).log_debug(self.prefix() + "Instanciated. Gonna listen for some welcome.")
+                print "DEBUG: Instanciated. Gonna listen for some welcome."
                 self.listen()
             except socket.timeout:
-                super(Telnet, self).log_debug(self.prefix() + "Instanciating socket timeout.")
+                print "DEBUG: Instanciating socket timeout."
                 raise TelnetTimeoutException(self.to_host(), self.timeout)
             except socket.error as e:
                 if e.errno is errno.EHOSTUNREACH:
@@ -191,7 +161,7 @@ class Telnet():
                 self.rcpts += 1
                 if Telnet.SOCK_MAX_RCPTS > 0 and self.rcpts == Telnet.SOCK_MAX_RCPTS:
                     raise TelnetTooMuchRcptsException(self.to_host())
-            super(Telnet, self).log_debug(self.prefix() + "Tell: \"" + msg + "\"")
+            print "DEBUG: Tell: \"" + msg + "\""
             try:
                 self.sock.send((msg if msg is not None else "") + '\r\n')
             except socket.error as e:
@@ -216,19 +186,18 @@ class Telnet():
                 time.sleep(0.5)
             if reply.isEmpty():
                 raise TelnetTimeoutException(self.to_host(), self.timeout)
-            super(Telnet, self).log_debug(self.prefix() + "Recv: \"[" + reply.code + "]" + (" " + reply.msg if len(reply.msg) > 0 else str()) + "\"")
+            print "DEBUG: Recv: \"[" + reply.code + "]" + (" " + reply.msg if len(reply.msg) > 0 else str()) + "\""
             if not reply.code[0] == "2" and ("greylist" in reply.msg.lower() or "too busy" in reply.msg.lower() or "try later" in reply.msg.lower() or "try again in" in reply.msg.lower()):
                 raise TelnetGreylistedException(self.to_host(), reply.code, reply.msg)
             elif not reply.code[0] == "2" and ("blacklist" in reply.msg.lower() or ("blocked" in reply.msg.lower() and "ip" in reply.msg.lower())) and not "not exist" in reply.msg.lower():
                 raise TelnetBlacklistedException(self.to_host(), reply.code, reply.msg)
         except socket.timeout:
-            super(Telnet, self).log_debug(self.prefix() + "Got not reply.")
+            print "DEBUG: Got not reply."
             raise TelnetTimeoutException(self.to_host(), self.timeout)
         except socket.error as e:
             if e.errno is errno.ECONNRESET:
                 raise TelnetClosedException(self.to_host())
         return reply
-
     def quit(self):
         if self.sock is not None:
             self.sock.close()
