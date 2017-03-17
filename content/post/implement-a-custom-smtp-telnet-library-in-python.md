@@ -2,10 +2,10 @@
 
 type = "post"
 title = "Implement a custom SMTP-Telnet library in python"
-draft = true
+draft = false
 author = "streambinder"
 date = "2017-03-17T12:24:00+01:00"
-tags = ["programming", "python", "python2"]
+tags = ["programming", "python", "python2", "telnet", "socket", "smtp"]
 
 +++
 
@@ -43,7 +43,7 @@ Escape character is '^]'.
 250 2.1.5 Ok
 ```
 
-So I needed a way to handle this conversation using _python_, inside a bigger and more complex ecosystem.
+So I needed a way to handle this conversation using _python_, inside a bigger and more complex ecosystem. Actually decided to implement something that could be handled easier than using _socket_ provided APIs. So, my needs brought me to write the code below.
 
 ```python
 import errno
@@ -234,3 +234,59 @@ class Telnet():
             self.sock.close()
         self.sock = None
 ```
+
+I know, I can't mash this code right here without any explaination. So, let's check every part:
+
+1. `Telnet` object: this is actually the core part of the implementation. As you could read in the `__init__` function, it takes several parameters:
+
+  - `to_h` (for _to host_): the destination host IP (or hostname);
+  - `to_p` (for _to port_): the destination host _SMTP_ port (you know, it could be listening on several ports, although it's supposed to work on 25);
+  - `from_h` (for _from host_): the source host IP, to decide on which local IP instanciate the connection;
+  - `from_p` (for _from port_): the source host port, if needed. Actually it's set to 0 by default, so to delegate the decision to the operating system;
+  - `timeout`: the instanciating and operating service timeout. The object set the phase of the conversation to `PHASE_NEWBORN`, resets the read RPCTs counter and tries to open the connection. Once ready, you can interact with the connection using the `tell()` function. If no argument is passed to it, it will somehow ping to the destination host (in the instanciating process, it's needed to wait the destination host to give us the welcome message), otherwise it's supposed to be used passing the _SMTP_ specific messages, such as the ones already explained (_helo_, _mail from_ and _rcpt to_). Everytime the object catch an output message, it will parse it into an helper object, the `TelnetReply`.
+
+2. `TelnetReply`: as mentioned, it's an helper object that parse rude connection messages into a more manageable and readable structure. Once ready, you could access output message using field `telnet_reply.msg` and output code using field `telnet_reply.code`. It actually can also provide host which the message came from, but it's not that needed, as already known from `Telnet` instance.
+
+3. Exceptions: there're several exceptions.
+
+  - `TelnetTimeoutException`: everytime any `Telnet` instance operation takes longer than expected by the field `timeout`, a `TelnetTimeoutException` is raised;
+  - `TelnetClosedException`: raised if a _telnet_ operations fails due to socket closure by the destination host;
+  - `TelnetNoRouteException`: if the `Telnet` instance is not able to reach the destination host, it gets raised;
+  - `TelnetBlacklistedException`: raised if the `Telnet` instance detects a blacklist on the source IP while doing any kind of operation;
+  - `TelnetGreylistedException`: raised if the `Telnet` instance detects a greylist on the source IP while doing any kind of operation;
+  - `TelnetTooMuchRcptsException`: raised if the `Telnet` instance has asked more than its `SOCK_MAX_RCPTS` constant RCPTs.
+
+Finally, this is actually what happens - in the same case of the shell example provided above - using this implementation:
+
+```python
+import telnet
+import sys
+
+try:
+    sock = telnet.Telnet("dst.mail.company.net", 25, "192.168.0.253")
+    reply = sock.tell("helo src.mail.company.net")
+    if reply.code[0] is not "2":
+        print "ERROR: not expected \"helo\" output code."
+    reply = sock.tell("mail from: <streambinder@company.net>")
+        if reply.code[0] is not "2":
+            print "ERROR: not expected \"mail from\" output code."
+    reply = sock.tell("rcpt to: <d33pcode@company.net>")
+        if reply.code[0] is not "2":
+            print "ERROR: not expected \"rcpt to\" output code."
+        else:
+            print "d33pcode@company.net seems to be alive."
+except (telnet.TelnetTimeoutException, telnet.TelnetNoRouteException) as e:
+    print "ERROR: " + str(e)
+    try:
+        sock.quit()
+    except:
+        pass
+except telnet.TelnetBlacklistedException as e:
+    print "ERROR: " + str(e)
+    sys.exit(0)
+except telnet.TelnetGreylistedException as e:
+    print "ERROR: " + str(e)
+    time.sleep(120)
+```
+
+So, it's actually a very basilar _telnet_ implementation, written exclusively to fit my context needs. I would be really glad to hear this helped someone. Obviously, if you need, feel free to extend it.
