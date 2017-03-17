@@ -72,7 +72,7 @@ class TelnetGreylistedException(Exception):
 
 class TelnetTooMuchRcptsException(Exception):
     def __init__(self, host):
-        super(TelnetTooMuchRcptsException, self).__init__("You've sent too much RCPT messages to " + str(host) + " (" + str(Telnet.SOCK_MAX_RCPTS) + ").")
+        super(TelnetTooMuchRcptsException, self).__init__("Too much RCPT messages to " + str(host) + " (" + str(Telnet.SOCK_MAX_RCPTS) + ").")
 
 class TelnetReply():
     def __init__(self, reply=None):
@@ -140,14 +140,11 @@ class Telnet():
             except socket.error as e:
                 if e.errno is errno.EHOSTUNREACH:
                     raise TelnetNoRouteException(self.to_host())
-
     def integrity_check(self):
         if self.sock is None:
             self.connect()
-
     def listen(self):
         return self.tell()
-
     def tell(self, msg=None):
         self.integrity_check()
 
