@@ -225,8 +225,9 @@ I know, I can't mash this code right here without any explaination. So, let's ch
 Finally, this is actually what happens - in the same case of the shell example provided above - using this implementation:
 
 ```python
-import telnet
 import sys
+import telnet
+import time
 
 try:
     sock = telnet.Telnet("dst.mail.company.net", 25, "192.168.0.253")
