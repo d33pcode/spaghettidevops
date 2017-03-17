@@ -2,7 +2,7 @@
 
 type = "post"
 title = "Welcome"
-draft = false
+draft = true
 author = "streambinder - BiziOS - d33pcode"
 date = "2017-03-14T12:27:04+01:00"
 tags = ["misc"]
