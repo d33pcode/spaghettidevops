@@ -222,6 +222,10 @@ ul.container li {
     list-style-type: none;
 }
 
+div.content {
+    margin-bottom: 75px;
+}
+
 @media screen and (max-width: 768px) {
     a.navbar-brand-img>img {
         vertical-align: bottom;
@@ -240,6 +244,9 @@ ul.container li {
         font-size: 11px;
     }
     h1 {
-      font-size: 46px;
+        font-size: 46px;
+    }
+    div.content {
+        margin-bottom: 40px;
     }
 }
