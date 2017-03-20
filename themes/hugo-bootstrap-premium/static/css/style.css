@@ -37,7 +37,14 @@ p.lead>a {
     float: right;
 }
 
-p.lead>a, p.lead>a:hover, p.lead>a:focus, p.lead>a:active {
+ul.pager>li>a, p.lead>a {
+    font-weight: 400;
+    background-color: #f1f8ff;
+    border-radius: 3px;
+    border-width: 0px;
+}
+
+ul.pager>li>a, ul.pager>li>a:hover, ul.pager>li>a:focus, ul.pager>li>a:active, p.lead>a, p.lead>a:hover, p.lead>a:focus, p.lead>a:active {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -45,13 +52,16 @@ p.lead>a, p.lead>a:hover, p.lead>a:focus, p.lead>a:active {
     font-size: 12px;
 }
 
-p.lead>a {
-    font-weight: 400;
-    background-color: #f1f8ff;
+ul.pager>li>a:hover, ul.pager>li>a:focus, ul.pager>li>a:active, p.lead>a:hover, p.lead>a:focus, p.lead>a:active {
+    background-color: #ddeeff !important;
 }
 
-p.lead>a:hover, p.lead>a:focus, p.lead>a:active {
-    background-color: #ddeeff !important;
+ul.pager>li.next>a>span {
+    margin-left: 10px;
+}
+
+ul.pager>li.previous>a>span {
+    margin-right: 10px;
 }
 
 time {
@@ -211,6 +221,7 @@ small.params-tags>a {
     font-size: 12px;
     font-weight: 400;
     background-color: #f1f8ff;
+    display: inline-table;
 }
 
 small.params-tags>a:hover, small.params-tags>a:focus {
