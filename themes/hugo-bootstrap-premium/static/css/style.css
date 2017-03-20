@@ -221,6 +221,7 @@ small.params-tags>a {
     font-size: 12px;
     font-weight: 400;
     background-color: #f1f8ff;
+    display: inline-table;
 }
 
 small.params-tags>a:hover, small.params-tags>a:focus {
