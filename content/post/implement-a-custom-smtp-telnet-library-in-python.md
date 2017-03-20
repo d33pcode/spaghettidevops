@@ -10,7 +10,7 @@ tags = ["programming", "python", "python2", "telnet", "socket", "smtp"]
 +++
 
 
-Why the f_*k you should implement a custom_ telnet _library in_ python_? Don't you know how_ telnet* protocol is obsolete, unsecure and - above all - already implemented by [telnetlib](https://docs.python.org/2/library/telnetlib.html)?
+Why the fuck you should implement a custom _telnet_ library in _python_? Don't you know how _telnet_ protocol is obsolete, unsecure and - above all - already implemented by [telnetlib](https://docs.python.org/2/library/telnetlib.html)?
 
 Yup, I obviously know it. But two reasons guided me into the - simple, indeed - adventure of rewriting the standard _telnetlib_ using [socket](https://docs.python.org/2/library/socket.html)? library:
 
