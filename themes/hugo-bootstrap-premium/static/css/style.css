@@ -237,6 +237,12 @@ div.content {
     margin-bottom: 75px;
 }
 
+div.content img {
+    margin: 15px auto;
+    border-radius: 5px;
+    max-width: 65%;
+}
+
 @media screen and (max-width: 768px) {
     a.navbar-brand-img>img {
         vertical-align: bottom;
@@ -259,5 +265,14 @@ div.content {
     }
     div.content {
         margin-bottom: 40px;
+    }
+    div.content img {
+        max-width: 75%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    div.content img {
+        max-width: 100%;
     }
 }
