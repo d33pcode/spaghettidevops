@@ -33,7 +33,7 @@ The core of this technique is the fragment shader. As already mentioned, we need
 <img title="sampling along pixel-to-center ray" src="/res/rendering-godrays/post_godrays_expl1.png" style="width: 350px; margin: auto">
 </a>
 
-In doing this, we generate a sort of radial blur from the center of the light source, that creates the illusion of shafts of light. We can then render this image on top of the scene using additive blending to obtain the godrays effect.
+In doing this, we generate a sort of radial blur from the center of the light source, that creates the shafts of light. We can then render this image on top of the scene using additive blending to obtain the godrays effect.
 
 ### Shader implementation
 Here is the fragment shader code:
