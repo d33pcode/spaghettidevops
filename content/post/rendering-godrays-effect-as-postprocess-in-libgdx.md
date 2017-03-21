@@ -58,10 +58,10 @@ void main() {
 
 	//sample the texture NUM_SAMPLES times
 	for(int i = 0; i < NUM_SAMPLES; i++) {
-        //sample the texture on the pixel-to-center ray getting closer to the center every iteration
-    	float scale = 1.0 + blurWidth * (float(i) / float(NUM_SAMPLES - 1));
-        //summing all the samples togheter
-    	color += (texture2D(u_texture, (ray * scale) + cent).xyz) / float(NUM_SAMPLES);
+		//sample the texture on the pixel-to-center ray getting closer to the center every iteration
+		float scale = 1.0 + blurWidth * (float(i) / float(NUM_SAMPLES - 1));
+		//summing all the samples togheter
+		color += (texture2D(u_texture, (ray * scale) + cent).xyz) / float(NUM_SAMPLES);
   	}
 	//return final color
 	gl_FragColor = vec4(color, 1.0);
