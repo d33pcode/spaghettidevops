@@ -280,6 +280,22 @@ div.content img {
 @media screen and (max-width: 480px) {
     div.navbar-header>div.header-title>small {
         margin-top: 5px;
+        font-size: 12px;
+    }
+    div.content h1 {
+        font-size: 38px;
+    }
+    div.content img {
+        max-width: 100%;
+        float: none;
+    }
+    div.content ol {
+        padding-left: 25px;
+    }
+}
+@media screen and (max-width: 320px) {
+    div.navbar-header>div.header-title>small {
+        margin-top: 5px;
         font-size: 10px;
     }
     div.content h1 {

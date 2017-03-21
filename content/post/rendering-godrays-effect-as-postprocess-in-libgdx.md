@@ -29,7 +29,9 @@ Actually, there is a fair bit of maths involved in modelling volumetric light sc
 Honestly, it is not essential to know all the maths of the underlying model, since it all boils down to approximations for the fact that we're working in 2D screen space and we don't have full volumetric information to determine occlusion (this is fortunate for us since we're reproducing the effect in 2D, where there is no volumetric information whatsoever!).
 The core of this technique is the fragment shader. As already mentioned, we need to approximate the probability of occlusion of each pixel, since we don't have any volumetric information at our disposal. To do that, we can sample the texture multiple times along the ray from the pixel to the light source, summing all the samples together. The proportion of samples that hit the emissive region versus those that strike occluders gives us the desired percentage of occlusion.
 
-<img title="sampling along pixel-to-center ray" src="/res/rendering-godrays/post_godrays_expl1.png" style="width: 50%; margin: auto">
+<a href="/res/rendering-godrays/post_godrays_expl1.png">
+<img title="sampling along pixel-to-center ray" src="/res/rendering-godrays/post_godrays_expl1.png" style="width: 350px; margin: auto">
+</a>
 
 In doing this, we generate a sort of radial blur from the center of the light source, that creates the illusion of shafts of light. We can then render this image on top of the scene using additive blending to obtain the effect.
 
