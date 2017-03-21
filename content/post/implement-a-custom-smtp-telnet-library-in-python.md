@@ -21,11 +21,13 @@ That said, let's introduce the problem: **why did I need to implement this libra
 
 But what about studying a little bit more the _SMTP_ protocol? Does anybody know how does it works, or at least, starts? Trust me: in an _SMTP_ conversation, you always start by introduce yourself; once the other side answers that it's ok with talking with you, you specify a mail address, the one you want to send data with; once - or if - the other side is ok again, you can specify the recipient address, and the other side will answer to you basicly with _"ok, tell me what to tell him"_ or _"no, who the fuck is him?"_. Actually it's not right that way, but you only need to know that in the last step we can obtain the information we're looking for. So, every _SMTP_ conversation starts with these three steps; let's have a more detailed look at them:
 
-phase number | phase appellation | example request                         | example answer
-:----------: | :---------------: | :-------------------------------------- | :----------------------------------------------------------------------------------------------
-     1       |     **HELO**      | `helo src.mail.company.net`             | `250 dst.mail.company.net`
-     2       |   **MAIL FROM**   | `mail from: <streambinder@company.net>` | `250 2.1.0 Ok`
-     3       |    **RCPT TO**    | `rcpt to: <d33pcode@company.net`        | `250 2.1.5 Ok` or `550 5.1.1 Recipient address rejected: User unknown in virtual mailbox table`
+1. **HELO** \\
+`helo src.mail.company.net`
+2. **MAIL FROM** \\
+`mail from: <streambinder@company.net>`
+3. **RCPT TO** \\
+`rcpt to: <d33pcode@company.net`
+4. **DATA**...
 
 This is more or less what happens when you handle this conversation using _telnet_ (example of _telnet_ via shell):
 
