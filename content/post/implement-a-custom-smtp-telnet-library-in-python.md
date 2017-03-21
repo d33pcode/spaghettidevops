@@ -21,25 +21,27 @@ That said, let's introduce the problem: **why did I need to implement this libra
 
 But what about studying a little bit more the _SMTP_ protocol? Does anybody know how does it works, or at least, starts? Trust me: in an _SMTP_ conversation, you always start by introduce yourself; once the other side answers that it's ok with talking with you, you specify a mail address, the one you want to send data with; once - or if - the other side is ok again, you can specify the recipient address, and the other side will answer to you basicly with _"ok, tell me what to tell him"_ or _"no, who the fuck is him?"_. Actually it's not right that way, but you only need to know that in the last step we can obtain the information we're looking for. So, every _SMTP_ conversation starts with these three steps; let's have a more detailed look at them:
 
-phase number | phase appellation | example request                         | example answer
-:----------: | :---------------: | :-------------------------------------- | :----------------------------------------------------------------------------------------------
-     1       |     **HELO**      | `helo src.mail.company.net`             | `250 dst.mail.company.net`
-     2       |   **MAIL FROM**   | `mail from: <streambinder@company.net>` | `250 2.1.0 Ok`
-     3       |    **RCPT TO**    | `rcpt to: <d33pcode@company.net`        | `250 2.1.5 Ok` or `550 5.1.1 Recipient address rejected: User unknown in virtual mailbox table`
+1. **HELO** \\
+`helo src.mail.org.net`
+2. **MAIL FROM** \\
+`mail from: <streambinder@org.net>`
+3. **RCPT TO** \\
+`rcpt to: <d33pcode@org.net>`
+4. **DATA**...
 
 This is more or less what happens when you handle this conversation using _telnet_ (example of _telnet_ via shell):
 
 ```bash
-[streambinder@workstation.company.net ~]$ telnet dst.mail.company.net 25
+[streambinder@workstation.org.net ~]$ telnet dst.mail.org.net 25
 Trying 192.168.0.254...
-Connected to dst.mail.company.net.
+Connected to dst.mail.org.net.
 Escape character is '^]'.
-220 dst.mail.company.net ESMTP Postfix
-> helo src.mail.company.net
-250 dst.mail.company.net
-> mail from: <streambinder@company.net>
+220 dst.mail.org.net ESMTP Postfix
+> helo src.mail.org.net
+250 dst.mail.org.net
+> mail from: <streambinder@org.net>
 250 2.1.0 Ok
-> rcpt to: <d33pcode@company.net>
+> rcpt to: <d33pcode@org.net>
 250 2.1.5 Ok
 ```
 
@@ -230,18 +232,18 @@ import telnet
 import time
 
 try:
-    sock = telnet.Telnet("dst.mail.company.net", 25, "192.168.0.253")
-    reply = sock.tell("helo src.mail.company.net")
+    sock = telnet.Telnet("dst.mail.org.net", 25, "192.168.0.253")
+    reply = sock.tell("helo src.mail.org.net")
     if reply.code[0] is not "2":
         print "ERROR: not expected \"helo\" output code."
-    reply = sock.tell("mail from: <streambinder@company.net>")
+    reply = sock.tell("mail from: <streambinder@org.net>")
         if reply.code[0] is not "2":
             print "ERROR: not expected \"mail from\" output code."
-    reply = sock.tell("rcpt to: <d33pcode@company.net>")
+    reply = sock.tell("rcpt to: <d33pcode@org.net>")
         if reply.code[0] is not "2":
             print "ERROR: not expected \"rcpt to\" output code."
         else:
-            print "d33pcode@company.net seems to be alive."
+            print "d33pcode@org.net seems to be alive."
 except (telnet.TelnetTimeoutException, telnet.TelnetNoRouteException) as e:
     print "ERROR: " + str(e)
     try:
