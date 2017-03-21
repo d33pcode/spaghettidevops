@@ -16,7 +16,7 @@ In this post we're going to implement a 2D "godrays" effect using shaders in Lib
 
 This effect aims to reproduce how the light interacts with the atmosphere in the real world. Since we rarely see light in a vacuum, between an observer and a light source there will always be some kind of medium - most likely air - in which the light propagates. Under the right conditions, when enough light-occluding material (gas, water vapor, etc...) is present in the medium, light-occluding objects in front of the light source will cast volumes of shadows, creating beautiful shafts of light.
 
-<img id="godraysimg" src="https://carlabrennan.files.wordpress.com/2012/08/god-rays-6.jpg" title="Godrays in FarCry 4">
+<img id="godraysimg" src="https://carlabrennan.files.wordpress.com/2012/08/god-rays-6.jpg" title="Godrays in FarCry 4" style="width:700px; margin: auto;">
 
 ### The basic idea
 
@@ -69,7 +69,7 @@ Note that we need to divide each sample by the total number of samples in order 
 ### Fixing problems
 
 As mentioned before, this technique is only a 2D screen space approximation of light scattering, and it has some problems. We are approximating each pixel occlusion by averaging its value with the pixels on the pixel-to-center line and this may cause unwanted stripes due to texture variations. To resolve this issue we need to render occluders in full black, maintaining only the alpha channel, in order to render only a silhouette of the occluder. This can be done simply using this shader:
-```
+```glsl
 varying LOWP vec4 v_color;
 varying vec2 v_texCoords;
 
@@ -82,37 +82,3 @@ void main() {
 }
 ```
 setting the `color` uniform to white (or whatever color you want) when rendering the sun and then to black when rendering occluders, enables us to render only their silhouettes. This removes the accidental stripes from the final result.
-
-```
-varying LOWP vec4 v_color
-varying vec2 v_texCoords;
-
-uniform sampler2D u_texture;
-
-void main() {
-
-}
-```
-
-<!-- CSS styling -->
-<style type="text/css">
-#godraysimg {
-    margin: auto;
-    width:700px;
-}
-@media screen and (max-width: 768px) {
-    #godraysimg {
-        margin: auto;
-        width:350px;
-    }
-}
-@media screen and (max-width: 430px) {
-    #godraysimg {
-        margin: auto;
-        width:280px;
-    }
-    #expl1 {
-        width: 90% !important;
-    }
-}
-</style>
