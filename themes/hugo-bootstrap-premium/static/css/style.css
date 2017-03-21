@@ -272,7 +272,17 @@ div.content img {
 }
 
 @media screen and (max-width: 480px) {
+    div.navbar-header>div.header-title>small {
+        margin-top: 5px;
+        font-size: 10px;
+    }
+    div.content h1 {
+        font-size: 38px;
+    }
     div.content img {
         max-width: 100%;
+    }
+    div.content ol {
+        padding-left: 25px;
     }
 }
