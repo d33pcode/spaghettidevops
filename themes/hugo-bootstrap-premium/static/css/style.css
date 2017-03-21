@@ -69,6 +69,11 @@ time {
     margin: -10px auto 15px;
 }
 
+pre {
+    padding: 0px !important;
+    border-radius: 5px;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -268,6 +273,7 @@ div.content img {
     }
     div.content img {
         max-width: 75%;
+        float: none;
     }
 }
 
@@ -281,6 +287,7 @@ div.content img {
     }
     div.content img {
         max-width: 100%;
+        float: none;
     }
     div.content ol {
         padding-left: 25px;
