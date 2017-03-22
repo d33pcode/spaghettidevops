@@ -248,6 +248,10 @@ div.content img {
     max-width: 65%;
 }
 
+pre code {
+    white-space: pre !important;
+}
+
 @media screen and (max-width: 768px) {
     a.navbar-brand-img>img {
         vertical-align: bottom;
@@ -293,6 +297,7 @@ div.content img {
         padding-left: 25px;
     }
 }
+
 @media screen and (max-width: 320px) {
     div.navbar-header>div.header-title>small {
         font-size: 10px;
