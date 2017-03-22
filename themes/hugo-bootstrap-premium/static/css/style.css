@@ -303,4 +303,7 @@ pre code {
     div.navbar-header>div.header-title>small {
         font-size: 10px;
     }
+    div.content ol {
+        padding-left: 20px;
+    }
 }
