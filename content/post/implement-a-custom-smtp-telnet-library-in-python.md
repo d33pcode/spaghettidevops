@@ -4,7 +4,7 @@ type = "post"
 title = "Implement a custom SMTP-Telnet library in python"
 draft = false
 author = "streambinder"
-date = "2017-03-17T12:24:00+01:00"
+date = "2017-03-21T12:24:00+01:00"
 tags = ["programming", "python", "python2", "telnet", "socket", "smtp"]
 
 +++
