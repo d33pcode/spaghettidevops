@@ -253,7 +253,7 @@ pre code {
     white-space: pre !important;
 }
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     a.navbar-brand-img>img {
         vertical-align: bottom;
         padding-left: 15px;
@@ -282,12 +282,12 @@ pre code {
     }
 }
 
-@media screen and (max-width: 480px) {
+@media (max-width: 480px) {
     div.navbar-header>div.header-title>small {
         margin-top: 5px;
         font-size: 12px;
     }
-    div.content h1 {
+    body h1 {
         font-size: 38px;
     }
     div.content img {
@@ -299,7 +299,7 @@ pre code {
     }
 }
 
-@media screen and (max-width: 320px) {
+@media (max-width: 320px) {
     div.navbar-header>div.header-title>small {
         font-size: 10px;
     }
