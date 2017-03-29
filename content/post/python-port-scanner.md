@@ -1,6 +1,6 @@
 +++
 
-type = "post" title = "Checking ports status, the lazy way." draft = false author = "d33pcode" date = "2017-03-15T16:44:11+01:00" tags = ["python","scripts", "monitoring"]
+type = "post" title = "Checking ports status, the lazy way." draft = false author = "d33pcode" date = "2017-03-29T16:44:11+01:00" tags = ["python","scripts", "monitoring"]
 
 +++
 
