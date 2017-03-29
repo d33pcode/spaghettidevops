@@ -5,17 +5,16 @@ footer = [
     "This is not the footer you are looking for.",
     "The truth is out there. Anybody got the URL?",
     "Good code is awesome, but we don't have time!",
-    "It’s not a bug – it’s an undocumented feature.",
+    "It's not a bug – it's an undocumented feature.",
     "Penguins love cold, they wont survive the sun.",
-    "I would tell you a UDP joke, but you might not get it.",
+    "I would tell you a UDP joke, but you probably wouldn't get it.",
     "Pacifism is good, at least when it comes to git conflicts.",
     "403 Forbidden: You don't have rights to access this footer.",
     "Exception in thread \"main\" java.lang.IllegalFooterException.",
-    "We like to have rich friends, but we usually don't give them money.",
     "In order to understand recursion you must first understand recursion.",
     "I would love to change the world, but they won’t give me the source code.",
     "There are 10 types of people in the world: those who understand binary, and those who don't.",
-    "When you die and go to heaven, God finally tells you the advantages of a segmented memory architecture."
+    "When you'll die and go to heaven, maybe God will finally tell you the advantages of a segmented memory architecture.",
 ]
 
 both = [
