@@ -1,16 +1,17 @@
 +++
 
-type = "post" title = "Checking ports status, the lazy way." draft = false author = "d33pcode" date = "2017-03-29T16:44:11+01:00" tags = ["python","scripts", "monitoring"]
+type = "post"
+title = "Checking ports status, the lazy way."
+draft = false
+author = "d33pcode"
+date = "2017-03-29T16:44:11+01:00"
+tags = ["python","scripts", "monitoring"]
 
 +++
 
-**Note:** this article will show you *some good ways* to build a port scanner.
-Not *the best way*. Not the entire, fully-working, ready-for-copypasta port
-scanner that maybe you'll expect.
+**Note:** this article will show you _some good ways_ to build a port scanner. Not _the best way_. Not the entire, fully-working, ready-for-copypasta port scanner that maybe you'll expect.
 
-So, if you're looking for ideas and some nice snippets with their explanation,
-go on and read this; `else: go away`.
-
+So, if you're looking for ideas and some nice snippets with their explanation, go on and read this; `else: go away`.
 
 > Yesterday, you noticed some ports were open where they shouldn't have been.
 
@@ -130,14 +131,11 @@ for address in readConf('addresslist.conf'):
         t.start()
 ```
 
-Cool. Now we only have one problem: the sequential portion of code is the one that causes performance issues. If the script instantiates a thread for scanning all the default ports, it will still take really long time for it to end.
-To avoid this, we can divide all that ports in small batches: a thread will always
-call the scanner function for a small amount of ports, speeding up the execution
-of the default ports scanning, too.
+Cool. Now we only have one problem: the sequential portion of code is the one that causes performance issues. If the script instantiates a thread for scanning all the default ports, it will still take really long time for it to end. To avoid this, we can divide all that ports in small batches: a thread will always call the scanner function for a small amount of ports, speeding up the execution of the default ports scanning, too.
 
 To get the ports in batches of 20, we can do it this way:
 
-```py
+```python
 allports = range(1,1025)
 sliced_ports = []
 while allports:
@@ -145,11 +143,12 @@ while allports:
     sliced_ports.append(slice)
     allports = [p for p in allports if p not in slice]
 ```
-At the end of the execution of that portion of code, allports will be empty
-and sliced_ports will contain lists of *up to* 20 ports.
+
+At the end of the execution of that portion of code, allports will be empty and sliced_ports will contain lists of _up to_ 20 ports.
 
 Now let's quickly edit the initial script:
-```py
+
+```python
 for address in readConf('addresslist.conf'):
     if config[address]:
         t = threading.Thread(target=scanPorts, args=(address, config[address]))
@@ -168,12 +167,11 @@ for address in readConf('addresslist.conf'):
             t.start()
 ```
 
-### Logging things
-If you want to persist the informations about the scan, you can simply open a
-file in read mode and use the `.flush()` method after every `.write()` to save
-concurrency.
+## Logging things
 
-```py
+If you want to persist the informations about the scan, you can simply open a file in read mode and use the `.flush()` method after every `.write()` to save concurrency.
+
+```python
 logfile=open('scan.log', 'w')
 
 def scanPorts(host, ports, logfile):
@@ -190,5 +188,4 @@ def scanPorts(host, ports, logfile):
           logfile.flush()
 ```
 
-And that's it.
-You can find my full port scanner (https://github.com/d33pcode/syrus-monitor/blob/master/portscanner.py)[here].
+And that's it. You can find my full port scanner [here](https://github.com/d33pcode/syrus-monitor/blob/master/portscanner.py).
