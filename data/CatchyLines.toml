@@ -2,6 +2,7 @@ header = []
 
 footer = [
     "Black holes are where God divided by zero.",
+    "Hardcoded with 💩 by a bunch of busy geeks.",
     "This is not the footer you are looking for.",
     "The truth is out there. Anybody got the URL?",
     "Good code is awesome, but we don't have time!",
@@ -21,12 +22,11 @@ both = [
     "Hey! It compiles! Ship it.",
     "The more I C, the less I see.",
     "Just ignore this %header-or-footer%.",
-    "Hardcoded with 💩 by a bunch of busy geeks.",
     "My attitude isn’t bad. It’s in beta.",
     "We love OpenSource, especially yours.",
     "We apologise for d33pcode's sad jokes.",
     "A blog about segfaults and other shit.",
     "To iterate is human, to recurse divine.",
-    "CAPS LOCK – Preventing Login Since 1980.",
+    "CAPS LOCK - Preventing login since 1980.",
     "cat: %header-or-footer%.txt: Permission denied."
 ]

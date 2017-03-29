@@ -1,7 +1,7 @@
 {{ if isset .Params "tags"}}
 <small class="params-tags">
     <i class="fa fa-tags"></i>
-    {{ range .Params.tags }}
+    {{ range first 10 .Params.tags }}
         <a href="{{ "tags/" | absLangURL }}{{ . | urlize }}" class="label label-primary">{{ . }}</a>
     {{ end }}
 </small>

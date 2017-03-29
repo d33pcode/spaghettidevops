@@ -37,7 +37,15 @@ p.lead>a {
     float: right;
 }
 
-p.lead>a, p.lead>a:hover, p.lead>a:focus, p.lead>a:active {
+ul.pager>li>a, p.lead>a {
+    font-weight: 400;
+    background-color: #f1f8ff;
+    border-radius: 3px;
+    border-width: 0px;
+    margin: -10px 0 15px;
+}
+
+ul.pager>li>a, ul.pager>li>a:hover, ul.pager>li>a:focus, ul.pager>li>a:active, p.lead>a, p.lead>a:hover, p.lead>a:focus, p.lead>a:active {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -45,18 +53,26 @@ p.lead>a, p.lead>a:hover, p.lead>a:focus, p.lead>a:active {
     font-size: 12px;
 }
 
-p.lead>a {
-    font-weight: 400;
-    background-color: #f1f8ff;
+ul.pager>li>a:hover, ul.pager>li>a:focus, ul.pager>li>a:active, p.lead>a:hover, p.lead>a:focus, p.lead>a:active {
+    background-color: #ddeeff !important;
 }
 
-p.lead>a:hover, p.lead>a:focus, p.lead>a:active {
-    background-color: #ddeeff !important;
+ul.pager>li.next>a>span {
+    margin-left: 10px;
+}
+
+ul.pager>li.previous>a>span {
+    margin-right: 10px;
 }
 
 time {
     display: inline-block;
     margin: -10px auto 15px;
+}
+
+pre {
+    padding: 0px !important;
+    border-radius: 5px;
 }
 
 .footer {
@@ -211,6 +227,7 @@ small.params-tags>a {
     font-size: 12px;
     font-weight: 400;
     background-color: #f1f8ff;
+    display: inline-table;
 }
 
 small.params-tags>a:hover, small.params-tags>a:focus {
@@ -222,7 +239,21 @@ ul.container li {
     list-style-type: none;
 }
 
-@media screen and (max-width: 768px) {
+div.content {
+    margin-bottom: 75px;
+}
+
+div.content img {
+    margin: 15px auto;
+    border-radius: 5px;
+    max-width: 65%;
+}
+
+pre code {
+    white-space: pre !important;
+}
+
+@media (max-width: 768px) {
     a.navbar-brand-img>img {
         vertical-align: bottom;
         padding-left: 15px;
@@ -240,6 +271,39 @@ ul.container li {
         font-size: 11px;
     }
     h1 {
-      font-size: 46px;
+        font-size: 46px;
+    }
+    div.content {
+        margin-bottom: 40px;
+    }
+    div.content img {
+        max-width: 75%;
+        float: none;
+    }
+}
+
+@media (max-width: 480px) {
+    div.navbar-header>div.header-title>small {
+        margin-top: 5px;
+        font-size: 12px;
+    }
+    body h1 {
+        font-size: 38px;
+    }
+    div.content img {
+        max-width: 100%;
+        float: none;
+    }
+    div.content ol {
+        padding-left: 25px;
+    }
+}
+
+@media (max-width: 320px) {
+    div.navbar-header>div.header-title>small {
+        font-size: 10px;
+    }
+    div.content ol {
+        padding-left: 20px;
     }
 }

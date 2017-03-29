@@ -8,7 +8,7 @@ draft = false
 
 +++
 
-### Hey.
+#### Hey.
 
 As you may have already understood this is a (sort of) blog and we are three IT fanatics. So, nothing new.
 
@@ -18,4 +18,4 @@ I'm *streambinder* and I'm not good in writing, at least everything but code. *d
 
 We hope you'll enjoy everything that will go around here.
 
-##### enjoy.
+##### \#enjoy.
