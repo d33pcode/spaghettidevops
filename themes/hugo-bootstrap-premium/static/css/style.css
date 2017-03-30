@@ -257,7 +257,7 @@ pre code {
 .hljs-line-numbers {
     min-width: 26px;
     text-align: right;
-    /*border-right: 1px solid #42454A;*/
+    border: none;
     color: #6C7380 !important;
     padding-right: 10px !important;
     padding-left: 10px !important;
