@@ -73,6 +73,7 @@ time {
 pre {
     padding: 0px !important;
     border-radius: 5px;
+    border: none;
 }
 
 .footer {
@@ -251,6 +252,20 @@ div.content img {
 
 pre code {
     white-space: pre !important;
+}
+
+.hljs-line-numbers {
+    text-align: right;
+    border-right: 1px solid #42454A;
+    color: #999;
+    padding-right: 10px;
+    padding-left: 10px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 @media (max-width: 768px) {

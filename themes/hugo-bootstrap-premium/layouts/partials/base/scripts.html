@@ -31,10 +31,6 @@
 </script>
 {{ end }}
 
-<script src="{{ "js/highlight.pack.js" | absURL }}"></script>
-<script src="{{ "js/site.js" | absURL }}"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
 {{ with .Site.Params.googleAnalytics }}
 <script>
   var _gaq=[['_setAccount','{{ . }}'],['_trackPageview']];
@@ -68,4 +64,9 @@ var COOKIE_NAME = {{.Site.Params.popover.cookiename}};
 <!-- client-side code highlighting -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/atom-one-dark.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<script src="{{ "js/highlight-linenums.js" | absURL }}"></script>
+<script src="{{ "js/site.js" | absURL }}"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
