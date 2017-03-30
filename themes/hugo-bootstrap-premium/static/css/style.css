@@ -259,8 +259,8 @@ pre code {
     text-align: right;
     /*border-right: 1px solid #42454A;*/
     color: #6C7380 !important;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 10px !important;
+    padding-left: 10px !important;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
