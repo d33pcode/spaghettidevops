@@ -114,4 +114,4 @@ The final result, along with all the rendering steps, is showed in the following
 
 **From left to right:** scene without the effect, FBO with black occluders silhouettes, occluders FBO after occlusion-approximation pass, scene with occluders FBO rendered on top of it with additive blending. <br/><br/>
 At this point you might be wondering where the Java code is. The answer is that i'm not going to explain the code line by line, because i already wrote it and i don't want to do it again, and because it is  pretty straight forward, and if you clicked on a LibGDX tutorial you will understand it without any problems. The focus of this article was to explain *how* to write a shader that creates a godrays effect, the platform on which it is done is only a detail. <br/>
-Here's the link to the code (navigate to the lightshafts package) https://github.com/SirBizio/libgdx-tests.
+Here's the link to the code (navigate to the lightshafts package) https://github.com/bamless/libgdx-tests.
