@@ -29,13 +29,13 @@ done
 
 Ok, nothing evidently bad, if `first_manipulation` and `latter_manipulation` do their job. They currently didn't.
 
-Actually, I wrote a `latter_manipulation` that brought my `mailbox_folder` to be non-valued, or - even worse - valued with `.`. I wasn't expected to handle a non-valued variable, though. The result? Assume that _domain.net_ contained three mailboxes: _streambinder_, _d33pcode_, _BiziOS_ and _randomguy_. My `while` cycle would do three iterations:
+Actually, I wrote a `latter_manipulation` that brought my `mailbox_folder` to be non-valued, or - even worse - valued with `.`. I wasn't expected to handle a non-valued variable, though. The result? Assume that _domain.net_ contained three mailboxes: _streambinder_, _d33pcode_, _bamless_ and _randomguy_. My `while` cycle would do three iterations:
 
 \#  | instructions
 :-: | :---------------------------------------------
 1   | `cd .`<br> `chown -R streambinder`<br> `cd ..`
 2   | `cd .`<br> `chown -R d33pcode`<br> `cd ..`
-3   | `cd .`<br> `chown -R BiziOS`<br> `cd ..`
+3   | `cd .`<br> `chown -R bamless`<br> `cd ..`
 4   | `cd .`<br> `chown -R randomguy`<br> `cd ..`
 
 So, starting from `/var/vmail/domain.net`, translated:
@@ -44,7 +44,7 @@ So, starting from `/var/vmail/domain.net`, translated:
 :-: | :---------------------------------------------
 1   | `chown -R streambinder /var/vmail/domain.net/`
 2   | `chown -R d33pcode /var/vmail/`
-3   | `chown -R BiziOS /var/`
+3   | `chown -R bamless /var/`
 4   | `chown -R randomguy /`
 
 Effective result? _randomguy_ is the new systems administrator of that machine. He ownes everything on the machine. What about me? I'm fired.

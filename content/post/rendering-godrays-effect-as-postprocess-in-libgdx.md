@@ -1,7 +1,7 @@
 +++
 
 title = "Rendering a godrays effect as postprocess in LibGDX using shaders"
-author = "BiziOS"
+author = "bamless"
 tags = ["programming", "libgdx", "glsl", "java", "shader", "opengl", "godrays", "lightshafts", "volumetric light scattering"]
 draft = false
 type = "post"
