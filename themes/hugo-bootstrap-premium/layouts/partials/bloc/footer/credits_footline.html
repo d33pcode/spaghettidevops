@@ -7,8 +7,8 @@ $(function() {
 	fuckd33pcode = [];
 	catchylines = {{ .Site.Data.CatchyLines }};
 	fuckd33pcode = fuckd33pcode.concat(catchylines['footer']).concat(catchylines['both']);
-    var rand = Math.floor(Math.random() * fuckd33pcode.length);
-    document.getElementById("footerLine").innerHTML = fuckd33pcode[rand].replace("%header-or-footer%", "footer");
+	var rand = Math.floor(Math.random() * fuckd33pcode.length);
+	document.getElementById("footerLine").innerHTML = fuckd33pcode[rand].replace("%header-or-footer%", "footer");
 });
 </script>
 {{ else if ne .Site.Params.footline "" }}
