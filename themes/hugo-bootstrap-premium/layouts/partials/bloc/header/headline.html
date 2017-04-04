@@ -3,12 +3,8 @@
 <script type="text/javascript">
     $(function() {
         fuckd33pcode = [];
-        catchylines_specific = {{ .Site.Data.CatchyLines }}['header'];
-        catchylines_generic = {{ .Site.Data.CatchyLines }}['both'];
-        if (catchylines_specific != null)
-            fuckd33pcode = fuckd33pcode.concat(catchylines_specific);
-        if (catchylines_generic != null)
-            fuckd33pcode = fuckd33pcode.concat(catchylines_generic);
+        catchylines = {{ .Site.Data.CatchyLines }};
+        fuckd33pcode = fuckd33pcode.concat(catchylines['header']).concat(catchylines['both']);
         var rand = Math.floor(Math.random() * fuckd33pcode.length);
         document.getElementById("headerLine").innerHTML = fuckd33pcode[rand].replace("%header-or-footer%", "header");
     });
