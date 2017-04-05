@@ -4,7 +4,10 @@
     $(function() {
         fuckd33pcode = [];
         catchylines = {{ .Site.Data.CatchyLines }};
-        fuckd33pcode = fuckd33pcode.concat(catchylines['header']).concat(catchylines['both']);
+        if(catchylines['header'] != null)
+            fuckd33pcode = fuckd33pcode.concat(catchylines['header']);
+        if(catchylines['both'] != null)
+            fuckd33pcode = fuckd33pcode.concat(catchylines['both']);
         var rand = Math.floor(Math.random() * fuckd33pcode.length);
         document.getElementById("headerLine").innerHTML = fuckd33pcode[rand].replace("%header-or-footer%", "header");
     });
