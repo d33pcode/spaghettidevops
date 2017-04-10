@@ -1,11 +1,11 @@
 +++
 
-title = "Rendering a godrays effect as postprocess in LibGDX using shaders"
-author = "bamless"
-tags = ["programming", "libgdx", "glsl", "java", "shader", "opengl", "godrays", "lightshafts", "volumetric light scattering"]
-draft = false
 type = "post"
+title = "Rendering a godrays effect as postprocess in LibGDX using shaders"
+draft = false
+author = "bamless"
 date = "2017-03-22T13:02:20+01:00"
+tags = ["programming", "libgdx", "glsl", "java", "shader", "opengl", "godrays", "lightshafts", "volumetric light scattering"]
 
 +++
 
