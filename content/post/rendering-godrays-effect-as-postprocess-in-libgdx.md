@@ -20,7 +20,7 @@ This effect aims to reproduce how the light interacts with the atmosphere in the
 
 ### The basic idea
 
-Actually, there is a fair bit of maths involved in modelling volumetric light scattering (this is the badass name of the godrays effect). We face two possibilities here:
+Actually, there is a fair bit of maths involved in modeling volumetric light scattering (this is the badass name of the godrays effect). We face two possibilities here:
 
 1. I'll explain all the maths, with the risk of boring you and possibly (probably) myself while writing this. We don't want that, do we?
 
