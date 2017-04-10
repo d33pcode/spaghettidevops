@@ -5,7 +5,7 @@ title = "Migrate Debian to Ubuntu without care"
 draft = true
 author = "streambinder"
 date = "2017-04-09T21:39:00+01:00"
-tags = ["sysadmin", "bash", "debootstrap", "debian", "squeeze", "ubuntu" "xenial xerus"]
+tags = ["sysadmin", "bash", "debootstrap", "debian", "squeeze", "ubuntu", "xenial xerus"]
 
 +++
 
