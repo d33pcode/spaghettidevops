@@ -72,7 +72,7 @@ The code is pretty simple. In the first line of the main function we calculate t
 
 ### Fixing problems
 
-As mentioned before, this technique is only a 2D screen space approximation of light scattering, and it has some problems. We are approximating each pixel occlusion by averaging its value with the pixels on the pixel-to-center line and this may cause unwanted stripes due to texture variations. To resolve this issue we need to render occluders in full black, maintaining only the alpha channel, in order to render only a silhouette of the occluder. This can be done easily enough using this shader:
+As mentioned before, this technique is only a 2D screen space approximation of light scattering, and it has some problems. We are approximating each pixel's occlusion by averaging its value with the pixels on the pixel-to-center line and this may cause unwanted stripes due to texture variations. To resolve this issue we need to render occluders in full black, maintaining only the alpha channel, in order to render only a silhouette of the occluder. This can be done easily enough using this shader:
 ```c
 varying LOWP vec4 v_color;
 varying vec2 v_texCoords;
