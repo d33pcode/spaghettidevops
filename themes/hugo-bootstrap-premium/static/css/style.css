@@ -254,6 +254,38 @@ pre code {
     white-space: pre !important;
 }
 
+h1.title {
+    font-size: 56px;
+}
+
+.content>h1, .content>.h1, .content>h2, .content>.h2, .content>h3, .content>.h3, .content>h4, .content>.h4, .content>h5, .content>.h5, .content>h6, .content>.h6 {
+    margin: 40px auto 15px;
+}
+
+h1, .h1 {
+    font-size: 34px;
+}
+
+h2, .h2 {
+    font-size: 31px;
+}
+
+h3, .h3 {
+    font-size: 28px;
+}
+
+h4, .h4 {
+    font-size: 25px;
+}
+
+h5, .h5 {
+    font-size: 22px;
+}
+
+h6, .h6 {
+    font-size: 18px;
+}
+
 .hljs-line-numbers {
     min-width: 26px;
     text-align: right;
