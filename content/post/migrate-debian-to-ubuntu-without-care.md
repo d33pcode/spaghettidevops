@@ -123,7 +123,11 @@ Let's select whatever to install:
 
 ## Need to replicate something else?
 
-The following part of the article will contains just few code snippets to replicate _debian_ configuration to _ubuntu_.
+The following part of the article will contains just few code snippets to replicate _debian_ configuration to _ubuntu_. **NB** Assume these variables are set:
+
+- `MOUNTPOINT=/target/mount/point`
+- `DISK_PARTITION=` the target partition
+- `DISK_BOOT_PARTITION=` the `/boot` partition
 
 ### `fstab` configuration
 
