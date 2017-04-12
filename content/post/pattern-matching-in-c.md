@@ -40,4 +40,28 @@ int match_regex(const char *regex, const char *word);
 
 #endif //__REGEX_H__
 ```
-as you can see the function is very simple.
+as you can see the function is very simple. We're going to take 2 pointers to char as input: one to the regex, the other to the string we want to match.
+```
+int match_regex(const char *regex, const char *word) {
+    do {
+        if(match(regex, word))
+            return 1;
+    } while(*word++ != '\0');
+    return 0;
+}
+```
+This is the code of the function. As you can see it tries to match the string via the *match* function, incrementing the string pointer by one at every iteration. We can then add support for the `^` operator just by adding a few lines to the top:
+```
+int match_regex(const char *regex, const char *word) {
+    //if the first char is ^, then try to match only 1 time, at the beginning of the string
+    if(*regex == '^')
+        return match(regex + 1, word);
+    //else try to match multiple times, starting each time from a different position
+    do {
+        if(match(regex, word))
+            return 1;
+    } while(*word++ != '\0');
+    return 0;
+}
+```
+Let's now take a look at the hearth of the algorithm, the *match* function. We're going to start easy by adding only the portion of code that checks if the current literal matches the current position in the regex, and then we'll expand the function, adding the various cases for all the operators.
