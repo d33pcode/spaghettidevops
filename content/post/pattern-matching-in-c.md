@@ -73,4 +73,40 @@ static int match(const char *regex, const char *word) {
     return 0;
 }
 ```
-For now, the code is pretty straightforward. In the first line of the function we're going to check if we've reached the end of the regex (the recursion base case). If we have, it means we've found a match, otherwise the function would have returned 0 at some point instead of proceeding with the recursion. The second line is the one that actually checks the match and proceed with the recursion. it checks if the string we're trying to match isn't finished and if the current literal of the regex matches the current literal of the string. If the conditions are met, it increments the regex and word pointers - in other words it shifts the current char of the regex and word by one to the right - and it calls recursively itself.
+For now, the code is pretty straightforward. In the first line of the function we're going to check if we've reached the end of the regex (the recursion base case). If we have, it means we've found a match, otherwise the function would have returned 0 at some point instead of proceeding with the recursion. The second line is the one that actually checks the match and proceed with the recursion. it checks if the string we're trying to match isn't finished and if the current literal of the regex matches the current literal of the string. If the conditions are met, it increments the regex and word pointers - in other words it shifts the current char of the regex and word by one to the right - and it calls recursively itself. As it is, this function implements a very convoluted way to check two string for equality, now we need to implement the various regex operators.
+```
+static int match(const char *regex, const char *word) {
+    if(*regex == '\0') return 1;
+    if(*regex != '\\') {
+        if(regex[1] == '*')
+            return match_star(regex,  word);
+        if(regex[1] == '+')
+            return match_plus(regex, word);
+        if(regex[1] == '?')
+            return match_question(regex, word);
+        if(*regex == '$' && regex[1] == '\0')
+            return *word == '\0';
+        if(*word != '\0' && *regex == '.')
+            return match(regex + 1, word + 1);
+    } else {
+        regex++;
+    }
+    if(*word != '\0' && *regex == *word)
+        return match(regex + 1, word + 1);
+    return 0;
+}
+```
+This is the function that supports all the operators. The second _if_ checks for the escape character, and, if found, skips the operator checking stage and proceeds with the literal match. The operator checking section is pretty simple, it defines a series of cases, and it calls the appropriate function for each one. Let's examine the cases one by one: <br/>
+- The first case checks for the `*` operator. If it finds the "\*" character in the next string position it calls the *match_star* function:
+```
+static int match_star(const char *regex, const char *word) {
+    char match_char = *regex;
+    regex += 2;
+    do {
+        if(match(regex, word))
+            return 1;
+    } while(*word != '\0' && (match_char == *word++ || match_char == '.'));
+    return 0;
+}
+```
+The *match_star* function is pretty simple and does exactly what you would expect. It tries, with a *do while* loop, to match the string 0 or more times by calling repeatedly the *match* function until it returns true, or until the current position of the string does not match anymore with the character before the \* operator. Naturally, at every iteration we need to increment the string current position, otherwise the loop won't terminate. This is done, perhaps in a cryptic way, directly in the while condition to save space. For this very reason, the `match_char == *word++` condition *must* appear before the `match_char == '.'` condition, otherwise we are not guaranteed that the pointer will be incremented.  
