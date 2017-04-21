@@ -162,7 +162,8 @@ In the previous paragraph we've looked at the implementation of a regex matching
 As you've seen the code is not that complicated (if you understand recursion) and it is pretty short. The regex gets interpreted on the fly and the algorithm proceeds by backtracking on the `*` and `+` operators. Unfortunately simplicity of the code does not imply efficiency. In fact, the backtracking part of the algorithm hides an exponential worst-case complexity behind recursion and average case running times. Even if the algorithm is pretty fast for the most common combinations of regex/string we can construct "pathological" regex/string combinations that will force the backtracking algorithm to explore all the solution space. One such combination is `.*.*.*.*.*.*1`, `0000000000000`. In this case the algorithm will try to match the `*` operator multiple times, trying all the combinations and failing each time. We can easily prove that this process takes exponential time. Let's examine the worst case in which the algorithm enters every time the *match_star* function except for the last iteration: at iteration $i$, the *match_star* function calls itself over input $n - i$. The function does, in the worst case, $n$ iterations. So we have the recurrence equation:
 \\[t(n)=\begin{cases} 1 & \mbox{if }n\mbox{ is zero} \\\ t(n-1) + t(n-2) + ... + t(1) + 1 & \mbox{otherwise} \end{cases}\\]
 Let's work out a few of the terms of the recurrence:
-\\[t(1) = 1 \mathbin{,\ } t(2) = t(1) + 1 = 2 \mathbin{,\ } t(3) = t(2) + t(1) + 1 = 4 \mathbin{,\ } t(4) = t(3) + t(2) + t(1) + 1 = 8\\]
+\\[t(1) = 1 \mathbin{,\ } t(2) = t(1) + 1 = 2 \mathbin{,\ }\\] 
+\\[t(3) = t(2) + t(1) + 1 = 4 \mathbin{,\ } t(4) = t(3) + t(2) + t(1) + 1 = 8\\]
 It seems pretty evident that $\mathbin{\ }t(i) = 2^{i -1}$, we can prove it by induction:
 
 **basis** \
