@@ -23,7 +23,7 @@ Regexs can contain a wildcard, a special character that will match with any othe
 
 Two other special operators are the "anchor" operators `^` and `$`. The first can be used only at the beginning of a regex, and will match the following pattern only at the beginning of a string. As an example, `^app` will match `application` but not `an application`. The `$` is very similar, but can be used only at the end of a regex and will match the pattern only at the end of a string.
 
-Regexs can also support other operators, such as the `|` or operator, or the "backreference" operator (even though a regex with backreferences is not strictly speaking a regex, because can recognize non [regular languages](https://en.wikipedia.org/wiki/Regular_language)). For a full overview of regular expressions see: https://en.wikipedia.org/wiki/Regular_expression.
+Regexs can also support other operators, such as the `|` or operator, or the "backreference" operator (even though a regex with backreferences is not strictly speaking a regex, because can recognize non [regular languages](https://en.wikipedia.org/wiki/Regular_language)). For a full overview of regular expressions see: [regular expressions - Wikipedia](https://en.wikipedia.org/wiki/Regular_expression).
 
 In this article, for simplicity, we're going to implement only the wildcard, `^`, `$`, `*`, `+` and `?` operator (that last one matches the previous char 0 or 1 time) and we won't support parenthesis.
 
