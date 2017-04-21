@@ -328,6 +328,9 @@ h6, .h6 {
         max-width: 75%;
         float: none;
     }
+    .MathJax {
+        font-size: 75% !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -345,6 +348,9 @@ h6, .h6 {
     div.content ol {
         padding-left: 25px;
     }
+    .MathJax {
+        font-size: 75% !important;
+    }
 }
 
 @media (max-width: 320px) {
@@ -353,5 +359,8 @@ h6, .h6 {
     }
     div.content ol {
         padding-left: 20px;
+    }
+    .MathJax {
+        font-size: 75% !important;
     }
 }
