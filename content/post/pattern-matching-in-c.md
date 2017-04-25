@@ -34,7 +34,7 @@ As already mentioned we're going to implement the regex matcher in c. The algori
 One more thing: this is not a c tutorial, so I'm going to assume you have at least a basic understanding of how c works, especially pointers and strings.
 
 Let's start by creating an header file:
-```
+```c
 #ifndef __REGEX_H__
 #define __REGEX_H__
 
@@ -43,7 +43,7 @@ int match_regex(const char *regex, const char *word);
 #endif //__REGEX_H__
 ```
 as you can see the function is very simple. We're going to take 2 pointers to char as input: one to the regex, the other to the string we want to match.
-```
+```c
 int match_regex(const char *regex, const char *word) {
     do {
         if(match(regex, word))
@@ -53,7 +53,7 @@ int match_regex(const char *regex, const char *word) {
 }
 ```
 This is the code of the function. As you can see it tries to match the string via the *match* function, incrementing the string pointer by one at every iteration. We can then add support for the `^` operator just by adding a few lines to the top:
-```
+```c
 int match_regex(const char *regex, const char *word) {
     //if the first char is ^, then try to match only 1 time, at the beginning of the string
     if(*regex == '^')
@@ -67,7 +67,7 @@ int match_regex(const char *regex, const char *word) {
 }
 ```
 Let's now take a look at the hearth of the algorithm, the *match* function. We're going to start easy by adding only the portion of code that checks if the current literal matches the current position in the regex, and then we'll expand the function, adding the various cases for all the operators.
-```
+```c
 static int match(const char *regex, const char *word) {
     if(*regex == '\0') return 1;
     if(*word != '\0' && *regex == *word)
@@ -76,7 +76,7 @@ static int match(const char *regex, const char *word) {
 }
 ```
 For now, the code is pretty straightforward. In the first line of the function we're checking if we've reached the end of the regex (the recursion base case). If we have, it means we've found a match, otherwise the function would have returned zero at some previous point in the execution. The second line is the one that actually checks the match and proceeds with the recursion. It checks if the string we're trying to match isn't finished and if the current literal of the regex matches the current literal of the string. If the conditions are met, it increments the regex and word pointers - in other words it shifts the current char of the regex and word by one to the right - and it calls recursively itself. As it is, this function implements only a very convoluted way to check two string for equality. To match regular expressions, we need to implement the cases for regex operators:
-```
+```c
 static int match(const char *regex, const char *word) {
     if(*regex == '\0') return 1;
     if(*regex != '\\') {
@@ -101,7 +101,7 @@ static int match(const char *regex, const char *word) {
 This is the function that supports all the operators. The second *if* checks for the escape character, and, if found, skips the operator checking stage and proceeds with the literal match. The operator checking section is pretty simple, it defines a series of cases, and it calls the appropriate function for each one. Let's examine the cases one by one:
 
 - The first case checks for the `*` operator. If it finds the "\*" character in the next regex position it calls the *match_star* function:
-```
+```c
 static int match_star(const char *regex, const char *word) {
         char match_char = *regex;
         regex += 2;
@@ -115,7 +115,7 @@ static int match_star(const char *regex, const char *word) {
 The *match_star* function does exactly what you would expect. It tries, with a *do while* loop, to match the string 0 or more times by calling repeatedly the *match* function until it returns true, or until the current position of the string does not match anymore with the character before the \* operator. Naturally, at every iteration we need to increment the string current position, otherwise the loop won't terminate. This is done, perhaps in a cryptic way, directly in the while condition to save space. For this reason, the `match_char == *word++` condition *must* appear before the `match_char == '.'` condition, otherwise we are not guaranteed that the pointer will be incremented.
 
 - The second case checks for the `+` operator. Exactly like the first case, if the next character in the regex is equal to the operator char it calls the specific function to handle it:
-```
+```c
 static int match_plus(const char *regex, const char *word) {
         char match_char = *regex;
         regex += 2;
@@ -129,7 +129,7 @@ static int match_plus(const char *regex, const char *word) {
 As you can see, this function is exactly the same as the previous one, with the only difference being the use of the *while* instead of the *do while* loop. This means that the code inside the loop can't be executed if the conditions are not met, not even once. This produces the effect of the "+" operator, that matches the previous character **one** or more times.
 
 - The third case, is very similar to the other ones. It calls this function when it finds the "?" character in the regex:
-```
+```c
 static int match_question(const char *regex, const char *word) {
         char match_char = *regex;
         regex += 2;
@@ -142,13 +142,13 @@ static int match_question(const char *regex, const char *word) {
 ```
 As you can see, instead of a loop this time we have only two conditional statements, one tries to match without incrementing nor the regex nor the string, and the other tries to match the next char in the string with the current char in the regex. This will match the previous char to "?" 0 or 1 times, exactly as the `?` operator should do.
 - The fourth case is a little different, as it checks for the second "anchor" operator `$`. This is perhaps the simplest check:
-```
+```c
 if(*regex == '$' && regex[1] == '\0')
         return *word == '\0';
 ```
 If we are located on the last character of the regex, and that character is "$", then the only thing we need to check is if we are located at the end of the word string too. In fact, if we are, then we have matched the regex on the end of the string.
 - I lied in the previous point. This is the simplest case:
-```
+```c
 if(*word != '\0' && *regex == '.')
         return match(regex + 1, word + 1);
 ```
