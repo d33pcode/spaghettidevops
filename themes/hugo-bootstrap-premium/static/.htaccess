@@ -2,8 +2,10 @@ ErrorDocument 404 /404.html
 
 # Caching
 <filesMatch ".(jpg|jpeg|png|gif|ico)$">
-Header set Cache-Control "max-age=31536000, public" # one year
+# One year cache limit
+Header set Cache-Control "max-age=31536000, public"
 </filesMatch>
 <filesMatch ".(css|js)$">
-Header set Cache-Control "max-age=2628000, public" # one month
+# One month cache limit
+Header set Cache-Control "max-age=2628000, public"
 </filesMatch>
