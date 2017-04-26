@@ -74,8 +74,8 @@ description = "A blog without a good description"
 # Default (if omitted) is "Home".
 home = "home"
 
-mailmunchid = "" # Mailmunch site id
-#sumomeid = "" # Sumome id
+#mailmunchid = ""
+#sumomeid = ""
 
 # Show a sidebar menu
 showRightSidebar = false
