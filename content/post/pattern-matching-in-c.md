@@ -85,7 +85,7 @@ static int match(const char *regex, const char *word) {
 
 For now, the code is pretty straightforward. In the first line of the function we're checking if we've reached the end of the regex (the recursion base case). If we have, it means we've found a match, otherwise the function would have returned zero at some previous point in the execution. The second line is the one that actually checks the match and proceeds with the recursion. It checks if the string we're trying to match isn't finished and if the current literal of the regex matches the current literal of the string. If the conditions are met, it increments the regex and word pointers - in other words it shifts the current char of the regex and word by one to the right - and it calls recursively itself. As it is, this function implements only a very convoluted way to check two string for equality. To match regular expressions, we need to implement the cases for regex operators:
 
-```c
+```
 static int match(const char *regex, const char *word) {
     if(*regex == '\0') return 1;
     if(*regex != '\\') {
