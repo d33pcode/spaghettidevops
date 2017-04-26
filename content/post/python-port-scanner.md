@@ -4,6 +4,7 @@ type = "post"
 title = "Checking ports status, the lazy way."
 draft = false
 author = "d33pcode"
+description = "Implementing a port scanner in python"
 date = "2017-03-29T16:44:11+01:00"
 tags = ["programming", "python", "python2", "security", "scripts", "monitoring", "ports"]
 

@@ -3,6 +3,7 @@ date = "2017-04-21T18:33:36+02:00"
 title = "Pattern matching in c, reinventing the wheel"
 author = "bamless"
 type = "post"
+description = "An implementation of a pattern matching algorithm in c"
 tags = ["programming", "regex", "regular", "expressions", "c"]
 draft = false
 +++

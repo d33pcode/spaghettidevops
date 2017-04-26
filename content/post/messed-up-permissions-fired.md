@@ -4,6 +4,7 @@ type = "post"
 title = "Messed up permissions. Fired."
 draft = false
 author = "streambinder"
+description = "fixing files permissions on RPM based linux distros"
 date = "2017-03-20T15:28:04+01:00"
 tags = ["sysadmin", "server", "linux", "redhat", "permissions", "mailserver"]
 

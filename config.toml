@@ -69,6 +69,7 @@ optin = true #opt-in: true/false
 BrandImage = "/icon/touch-icon-144-precomposed.png" #top header brand image.
 headline = "random"
 footline = "random"
+description = "A blog without a good description"
 
 # Text for the top menu link, which goes to the root URL for the site.
 # Default (if omitted) is "Home".

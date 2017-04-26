@@ -4,6 +4,7 @@ type = "post"
 title = "Rendering a godrays effect as postprocess in LibGDX using shaders"
 draft = false
 author = "bamless"
+description = "A tutorial for writing a volumetric light scattering shader in GLSL and LibGDX"
 date = "2017-03-22T13:02:20+01:00"
 tags = ["programming", "libgdx", "glsl", "java", "shader", "opengl", "godrays", "lightshafts", "volumetric light scattering"]
 

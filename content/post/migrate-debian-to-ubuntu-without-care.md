@@ -3,6 +3,7 @@
 type = "post"
 title = "Migrate Debian to Ubuntu without care"
 draft = false
+description = "Updating terminals from debian to ubuntu without physical access using debootstrap"
 author = "streambinder"
 date = "2017-04-10T21:39:00+01:00"
 tags = ["sysadmin", "bash", "debootstrap", "debian", "squeeze", "ubuntu", "xenial xerus"]
