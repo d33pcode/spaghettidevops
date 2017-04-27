@@ -41,8 +41,7 @@ email = "yourname@example.com"
 name = "paper"
 
 [params.popover]
-# This is a highly configurable popover form.
-enablepopover = false #enable or disable popover: true/false.
+enablepopover = false
 posturl = "https://zapier.com/hooks/catch/1227563/" # Your zapier post hook.
 headerimage = "//placehold.it/1000x600"
 expirecookie = 5 #show it again after number of days to visitors that has not subscribed.
@@ -75,8 +74,8 @@ description = "A blog without a good description"
 # Default (if omitted) is "Home".
 home = "home"
 
-mailmunchid = "" # Mailmunch site id
-#sumomeid = "" # Sumome id
+#mailmunchid = ""
+#sumomeid = ""
 
 # Show a sidebar menu
 showRightSidebar = false
