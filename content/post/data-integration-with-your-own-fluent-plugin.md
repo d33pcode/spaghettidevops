@@ -113,7 +113,7 @@ Once we defined a working _regex_, we need to tell _fluent_ how and on which fil
 </source>
 ```
 
-### What if I'm the mail server?
+### What if I'm not the mail server?
 
 In this case, you'll need a little hack. First of all, move to the mail server, and add this line to fire all its mail logs to our _rsyslog_ machine, too:
 ```
