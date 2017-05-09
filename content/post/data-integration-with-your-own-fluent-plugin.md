@@ -1,9 +1,9 @@
 +++
 
 author = "streambinder"
-date = "2017-04-29T13:58:36+02:00"
+date = "2017-05-09T11:11:36+02:00"
 description = "Write your own Fluent plugin to integrate data from logs flows"
-draft = true
+draft = false
 keywords = []
 tags = ["sysadmin", "fluent", "server", "logging", "ruby"]
 title = "Data integration with your own Fluent plugin"
@@ -11,6 +11,7 @@ topics = []
 type = "post"
 
 +++
+
 
 Have you ever had the needing to integrate informations from not-directly-handled sources into your application?
 
@@ -44,6 +45,13 @@ The approach I often used is to intepret processes logs to get those relevant in
 ```bash
 tail -n1 -f /var/log/maillog | awk '/status=/' | while read line; do
     email_stat=$(echo ${line} | awk -F'status=' '{ print $2 }' | awk '{ print $1 }')
+    if [[ "${email_stat}" == "sent" ]]; then
+        email_stat=1
+    elif [[ "${email_stat}" == "bounced" ]]; then
+        email_stat=2
+    else
+        email_stat=3
+    fi
     email_addr=$(echo ${line} | awk -F'to=<' '{ print $2 }' | awk '{ print $1 }')
     mysql -u root database "insert into Email (`address`,`status`) values ('${email_addr}','${email_stat}');"
 done
@@ -116,12 +124,15 @@ Once we defined a working _regex_, we need to tell _fluent_ how and on which fil
 ### What if I'm not the mail server?
 
 In this case, you'll need a little hack. First of all, move to the mail server, and add this line to fire all its mail logs to our _rsyslog_ machine, too:
+
 ```
 mail.* @192.168.0.1:5140
 ```
+
 **NB** `192.168.0.1` is the _rsyslog_ machine itself.
 
 Finally, let's modify the _Fluent_ configuration to make it be listening on the network for incoming logs with `system` tag:
+
 ```
 <source>
   @type syslog
@@ -131,3 +142,206 @@ Finally, let's modify the _Fluent_ configuration to make it be listening on the 
   format /^(?<prefix_weekday>[^ ]*) (?<prefix_day>[^ ]*) (?<prefix_hour_h>[^:]*):(?<prefix_hour_m>[^:]*):(?<prefix_hour_s>[^:]*) (?<prefix_hostname>[^ ]*) (?<prefix_instance>[^ ]*): (?<queueid>[^ ]*): to=<(?<rcpt_to>[^ ]*)>, relay=(?<relay>[^ ]*), [^*]* status=(?<status>[^ ]*) (?<message>[^/]*)/
 </source>
 ```
+
+## Data handling
+
+Now that we have logs correctly parsed as json objects, we have to write something to manipulate data they're bringing into our application.
+
+We'll gonna write a _Fluent_ output plugin.
+
+**PS** _Fluent_ can handle several plugins types:
+
+> Fluentd has 6 types of plugins: Input, Parser, Filter, Output, Formatter and Buffer. This article gives an overview of Output Plugin.
+
+I'm not gonna digress on how they differ, so if you wanna know something else about the plugin management, head to their [documentation](http://docs.fluentd.org/v0.12/articles/output-plugin-overview).
+
+_Fluent_ is written in _Ruby_, so, in order to create a plugin you'll need to have some basilar knowledge about its syntax and how it works (how basilar actually depends on what you're gonna do with it, obviously).
+
+Any output plugin is wrapped into a `moduole` and extends `Output` class: you'll need to _import_ its source, then. So, let's start with:
+
+```ruby
+require 'fluent/output'
+
+module
+    class PostfixToMysql < Output
+    end
+end
+```
+
+Also, as we're handling parsed json objects and we'll need to interact with (_mysql_) database, we'll gonna import few more dependencies (if you're missing them on your environment, head to [rubygems](https://rubygems.org/), it does its job pretty well).
+
+```ruby
+require 'fluent/output'
+require 'json'
+require 'mysql'
+
+module
+    class PostfixToMysql < Output
+    end
+end
+```
+
+We now need to override few standard methods and, above all, register the plugin in order to be able to use via _Fluent_ configuration.
+
+```ruby
+require 'fluent/output'
+require 'json'
+require 'mysql'
+
+module
+    class PostfixToMysql < Output
+        Fluent::Plugin.register_output("postfix-to-mysql", self)
+    end
+
+    def configure(conf)
+      super
+    end
+
+    def start
+      super
+    end
+
+    def shutdown
+      super
+    end
+
+    def emit(tag, es, chain)
+      super
+    end
+end
+```
+
+Let's introduce how these methods work and get called by _Fluent_ itself:
+
+- `configure(conf)`: it's called before _FLuent_ is getting started, and you'll find it useful if you need to do some preliminary activities as it's getting configurations parameters passed.
+- `start()`: it's called while _Fluent_ is starting.
+- `shutdown()`: it's called while _Fluent_ is stopping.
+- `emit(tag, es, chain)`: it's called when an event gets trapped by _Fluent_; it's actually the core method of our plugin. Actually this method is called by _Fluent_'s main thread so you should not write slow routines here, as it could cause _Fluent_'s performance degression.
+
+  - `tag` input parameter is the log tag that matched with the plugin definition.
+  - `es` input parameter is a `Fluent::EventStream` object that includes multiple events: you can use `es.each {|time,record| ... }` to iterate over events.
+  - `chain` input parameter is an object that manages transactions: call `chain.next` at appropriate points and rollback if it raises an exception.
+
+We'll now focus on `emit(tag, es, chain)` method. Let's write some simple code that pull needed stuff from the json object and fire it to mysql:
+
+```ruby
+def emit(tag, es, chain)
+  chain.next
+  db = nil
+  es.each do |time,record|
+    begin
+      if record['rcpt_to'].split('@').last.split('.').last(2).join('.') == "company.net"
+        # ignore events is email address matches with *@company.net, where company.net is the domain of our own company addresses
+        next
+      end
+      if db.nil?
+        db = Mysql.new 'localhost', @@mysql_user, @@mysql_password, @@mysql_database
+      end
+      email_stat = record['status'] == "sent" ? 1 : (record['status'] == "bounced" ? 2 : 3)
+      query = "update Email set status = #{email_stat} where email = '#{record['rcpt_to']}'"
+      db.query(query)
+    rescue Mysql::Error => e
+      File.open("/tmp/postfix-to-mysql.log", 'a') { |file| file.write("Error [#{e.errno}]: #{e.error}\n") }
+    end
+  end
+  db.close if db
+end
+```
+
+Few notes about the previous snippet:
+
+1. while instanciating the socket with our mysql server, we use the `@@mysql_user`, `@@mysql_password` and `@@mysql_database` class variables, don't forget to add them after class definition.
+2. the query we're doing actually depends on the database schema. In the example provided, we have a `Email` table, containing at least two colums:
+
+  1. `address` (`varchar(255)`): email address string
+  2. `status` (`int(1)`): email address status:
+
+    1. active (if we're getting `sent` as mail sending exit status)
+    2. closed (if we're getting `bounced` as mail sending exit status)
+    3. issues while trying to send (if we're getting `deferred` as mail sending exit status)
+
+Finally, our code will be placed into _Fluent_ plugins folder, `/etc/td-agent/plugin/fluent-mysql-plugin.rb`, and will contain:
+
+```ruby
+require 'fluent/output'
+require 'json'
+require 'mysql'
+
+module Fluent
+  class PostfixToMysql < Output
+    Fluent::Plugin.register_output("postfix-to-mysql", self)
+
+    @@mysql_database = "database"
+    @@mysql_user = "root"
+    @@mysql_password = ""
+
+    def configure(conf)
+      super
+    end
+
+    def start
+      super
+    end
+
+    def shutdown
+      super
+    end
+
+    def emit(tag, es, chain)
+      chain.next
+      db = nil
+      es.each do |time,record|
+        begin
+          if record['rcpt_to'].split('@').last.split('.').last(2).join('.') == "company.net"
+            # ignore events is email address matches with *@company.net, where company.net is the domain of our own company addresses
+            next
+          end
+          if db.nil?
+            db = Mysql.new 'localhost', @@mysql_user, @@mysql_password, @@mysql_database
+          end
+          email_stat = record['status'] == "sent" ? 1 : (record['status'] == "bounced" ? 2 : 3)
+          query = "update Email set status = #{email_stat} where email = '#{record['rcpt_to']}'"
+          db.query(query)
+        rescue Mysql::Error => e
+          File.open("/tmp/postfix-to-mysql.log", 'a') { |file| file.write("Error [#{e.errno}]: #{e.error}\n") }
+        end
+      end
+      db.close if db
+    end
+  end
+end
+```
+
+### Use our output plugin
+
+The only lasting activity, is to tell _Fluent_ to send our trapped postfix logs to our output plugin. Just modify its configuration, adding a new section:
+
+```
+<match system.mail.*>
+  type copy
+  <store>
+    # for debug (see /var/log/td-agent.log)
+    type stdout
+  </store>
+  <store>
+    type postfix-to-mysql
+  </store>
+</match>
+```
+
+Note that the following portion:
+
+```
+<store>
+  # for debug (see /var/log/td-agent.log)
+  type stdout
+</store>
+```
+
+is actually used for debugging purposes, to keep track of _Fluent_ activities flow to the output plugin.
+
+# Conclusion
+
+As always, this solution is thought to fit a specific needs, I won't affirm it's absolutely the best. You'll probably prefer the simpler `bash` driven one if you need to do more basilar manipulation activities.
+
+Hoping you'll find all of this in some ways useful, feel free to ask anything if it wasn't clear enough.
