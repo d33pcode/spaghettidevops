@@ -1,7 +1,7 @@
 +++
 
 author = "streambinder"
-date = "2017-04-29T13:58:36+02:00"
+date = "2017-05-09T11:11:36+02:00"
 description = "Write your own Fluent plugin to integrate data from logs flows"
 draft = false
 keywords = []
