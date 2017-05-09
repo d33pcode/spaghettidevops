@@ -36,7 +36,7 @@ public class User extends Entity {
 
 Actually these are only the basilar properties, but what if you would keep track of the users _email_ status? What if they get closed? You might want to add a field `Boolean emailStatus`, as you probably want to let users be able to login only if the `email` field is valid, or you want to be sure your mail-campaigns emails get their destinations.
 
-But how to keep track of this kind of informations? You should track all the emails the application is actually sending. But how? It would be really out of the application's logic to make some internal activities just to get those informations, more so if you need to introduce more and more entities (and then storing more data into your databases) just to reach your final - and primarily simple - aim, such as just knowing the email addresses status. So, let the application do what its made from, and let's think about something that can give it that informations.
+But how to keep track of this kind of informations? You should track all the emails the application is actually sending. But how? It would be really out of the application's logic to make some internal activities just to get those informations, more so if you need to introduce more and more entities (and then storing more data into your databases) just to reach your final - and primarily simple - aim, such as just knowing the email addresses status. So, let the application do what its made for, and let's think about something that can give it that informations.
 
 # Rural is for men
 
@@ -149,15 +149,15 @@ Now that we have logs correctly parsed as json objects, we have to write somethi
 
 We'll gonna write a _Fluent_ output plugin.
 
-**PS** _Fluent_ can handle several plugins types:
+**PS** _Fluent_ can handle several plugins types, as mentioned in their documentation:
 
-> Fluentd has 6 types of plugins: Input, Parser, Filter, Output, Formatter and Buffer. This article gives an overview of Output Plugin.
+> Fluentd has 6 types of plugins: Input, Parser, Filter, Output, Formatter and Buffer.
 
 I'm not gonna digress on how they differ, so if you wanna know something else about the plugin management, head to their [documentation](http://docs.fluentd.org/v0.12/articles/output-plugin-overview).
 
 _Fluent_ is written in _Ruby_, so, in order to create a plugin you'll need to have some basilar knowledge about its syntax and how it works (how basilar actually depends on what you're gonna do with it, obviously).
 
-Any output plugin is wrapped into a `moduole` and extends `Output` class: you'll need to _import_ its source, then. So, let's start with:
+Any output plugin is wrapped into a `module` and extends `Output` class: you'll need to _import_ its source, then. So, let's start with:
 
 ```ruby
 require 'fluent/output'
@@ -181,7 +181,7 @@ module
 end
 ```
 
-We now need to override few standard methods and, above all, register the plugin in order to be able to use via _Fluent_ configuration.
+We now need to override few standard methods and, above all, register the plugin in order to be able to use it via _Fluent_ configuration.
 
 ```ruby
 require 'fluent/output'
@@ -213,7 +213,7 @@ end
 
 Let's introduce how these methods work and get called by _Fluent_ itself:
 
-- `configure(conf)`: it's called before _FLuent_ is getting started, and you'll find it useful if you need to do some preliminary activities as it's getting configurations parameters passed.
+- `configure(conf)`: it's called before _Fluent_ is getting started, and you'll find it useful if you need to do some preliminary activities as it's getting configurations parameters passed.
 - `start()`: it's called while _Fluent_ is starting.
 - `shutdown()`: it's called while _Fluent_ is stopping.
 - `emit(tag, es, chain)`: it's called when an event gets trapped by _Fluent_; it's actually the core method of our plugin. Actually this method is called by _Fluent_'s main thread so you should not write slow routines here, as it could cause _Fluent_'s performance degression.
@@ -222,7 +222,7 @@ Let's introduce how these methods work and get called by _Fluent_ itself:
   - `es` input parameter is a `Fluent::EventStream` object that includes multiple events: you can use `es.each {|time,record| ... }` to iterate over events.
   - `chain` input parameter is an object that manages transactions: call `chain.next` at appropriate points and rollback if it raises an exception.
 
-We'll now focus on `emit(tag, es, chain)` method. Let's write some simple code that pull needed stuff from the json object and fire it to mysql:
+We'll now focus on `emit(tag, es, chain)` method. Let's write some simple lines to pull needed stuff from the json object and fire it to mysql:
 
 ```ruby
 def emit(tag, es, chain)
@@ -251,7 +251,7 @@ end
 Few notes about the previous snippet:
 
 1. while instanciating the socket with our mysql server, we use the `@@mysql_user`, `@@mysql_password` and `@@mysql_database` class variables, don't forget to add them after class definition.
-2. the query we're doing actually depends on the database schema. In the example provided, we have a `Email` table, containing at least two colums:
+2. the query we're doing actually depends on the database schema. In the example provided, we have an `Email` table, containing at least two colums:
 
   1. `address` (`varchar(255)`): email address string
   2. `status` (`int(1)`): email address status:
@@ -260,7 +260,7 @@ Few notes about the previous snippet:
     2. closed (if we're getting `bounced` as mail sending exit status)
     3. issues while trying to send (if we're getting `deferred` as mail sending exit status)
 
-Finally, our code will be placed into _Fluent_ plugins folder, `/etc/td-agent/plugin/fluent-mysql-plugin.rb`, and will contain:
+Finally, our code will be placed into the _Fluent_ plugins folder, `/etc/td-agent/plugin/fluent-mysql-plugin.rb`, and will contain:
 
 ```ruby
 require 'fluent/output'
@@ -342,6 +342,6 @@ is actually used for debugging purposes, to keep track of _Fluent_ activities fl
 
 # Conclusion
 
-As always, this solution is thought to fit a specific needs, I won't affirm it's absolutely the best. You'll probably prefer the simpler `bash` driven one if you need to do more basilar manipulation activities.
+As always, this solution is thought to fit specific needs, I won't affirm it's absolutely the best. You'll probably prefer the simpler `bash` driven one if you need to do more basilar manipulation activities.
 
 Hoping you'll find all of this in some ways useful, feel free to ask anything if it wasn't clear enough.
