@@ -15,7 +15,7 @@ type = "post"
 
 Have you ever had the needing to integrate informations from not-directly-handled sources into your application?
 
-Assume you're developing a social network. Assume you're following the [MVC](https://it.wikipedia.org/wiki/Model-View-Controller) architectural pattern logic. You will probably have an _entity_ that will define every standard user behaviors and specifications. Among all the properties a user could be defined from, which is the field that bestly describe it? Better: which is that field that usually uniquely describe it? Actually the email one, even if recently also the phone number is taking up its space.
+Assume you're developing a social network. Assume you're following the [MVC](https://it.wikipedia.org/wiki/Model-View-Controller) architectural pattern logic. You will probably have an _entity_ that will define every standard user behavior and specification. Among all the properties a user could be defined from, which is the field that bestly describes it? Better: which is that field that usually uniquely describes it? Actually the email one, even if recently also the phone number is taking up its space.
 
 A standard user entity could be described by the following code:
 
@@ -36,11 +36,11 @@ public class User extends Entity {
 
 Actually these are only the basilar properties, but what if you would keep track of the users _email_ status? What if they get closed? You might want to add a field `Boolean emailStatus`, as you probably want to let users be able to login only if the `email` field is valid, or you want to be sure your mail-campaigns emails get their destinations.
 
-But how to keep track of this kind of informations? You should track all the emails the application is actually sending. But how? It would be really out of the application's logic to make some internal activities just to get those informations, more so if you need to introduce more and more entities (and then storing more data into your databases) just to reach your final - and primarily simple - aim, such as just knowing the email addresses status. So, let the application do what its made for, and let's think about something that can give it that informations.
+But how to keep track of this kind of informations? You should track all the emails the application is actually sending. But how? It would be really out of the application's logic to make some internal activities just to get those informations, more so if you need to introduce more and more entities (and then storing more data into your databases) just to reach your final - and primarily simple - aim, such as just knowing the email addresses status. So, let the application do what its made for, and let's think about something that can give it those informations.
 
 # Rural is for men
 
-The approach I often used is to intepret processes logs to get those relevant informations. In this specific case, the solution would be, for example, track all the _Postfix_ logs (I assume you're actually using _Postfix_. If not, please, replace all `Postfix` occurrences with your preferred mail server software). Think of this `tail` shell command: `tail -f /var/log/maillog`. You'll live receive any log change on stdout. So you'll maybe want to filter lines and store informations into variables to manipulate them and eventually push in any way into the database:
+The approach I often used is to intepret processes logs to get those relevant informations. In this specific case, the solution would be, for example, track all the _Postfix_ logs (I assume you're actually using _Postfix_. If not, please, replace all "_Postfix_" occurrences with your preferred mail server software). Think of this `tail` shell command: `tail -f /var/log/maillog`. You'll live receive any log change on stdout. So you'll maybe want to filter lines and store informations into variables to manipulate them and eventually push in any way into the database:
 
 ```bash
 tail -n1 -f /var/log/maillog | awk '/status=/' | while read line; do
@@ -57,9 +57,9 @@ tail -n1 -f /var/log/maillog | awk '/status=/' | while read line; do
 done
 ```
 
-It works. It's simple. It's not that efficient. It's not rockly stable. And I'm not talking about this specific snippets, but about this logic, instead. You could choose this one, if your data flow is not that big, but if you always send thousands emails per hour, you should look somewhere else, for something more deeply thought.
+It works. It's simple. It's not that efficient. It's not rockly stable. And I'm not talking about this specific snippet, but about this logic, instead. You could choose this one, if your data flow is not that big, but if you always send thousands emails per hour, you should look somewhere else, for something more deeply thought.
 
-The solution I recently got in touch with is _fluent_.
+The solution I recently got in touch with is _Fluent_.
 
 # Fluentd
 
@@ -75,11 +75,11 @@ The solution I recently got in touch with is _fluent_.
 
 Advertising apart, _Fluent_ is a really useful software born to efficiently handle several log flows and do some activities upon the data its receiving from them.
 
-Back to the originary problem, once installed, we can configure it to pull some lines from _Postfix_ log. We basically impose a _regex_ string that has to match the log line type to pull and push it to a plugin that handle and insert data into the application. This way, the application itself won't need to do anything but wait to obtain informations about email addresses status.
+Back to the originary problem, once installed, we can configure it to pull some lines from _Postfix_ log. We basically impose a _regex_ string that has to match the log line type to pull and push it to a plugin that handles and inserts data into the application. This way, the application itself won't need to do anything but wait to obtain informations about email addresses status.
 
 ## Log source
 
-As just mentioned, we need to create a _regex_ string, needed to find the type of log line we want to interpret. So, as in the example of the _"rural script example"_, we want to handle a standard _Postfix_ status line, such as the following:
+As just mentioned, we need to create a _regex_ string, needed to find the type of log line we want to interpret. So, as in the _"rural script example"_, we want to handle a standard _Postfix_ status line, such as the following:
 
 ```
 Mar 27 12:34:45 server postfix/smtp[12345]: D09C7A0281: to=<some@o.ne>, relay=localhost[127.0.0.1]:25, delay=0.29, delays=0/0/0.1/0.19, dsn=2.0.0, status=sent (250 2.0.0 Ok: queued as 337CF5FD07)
@@ -213,10 +213,10 @@ end
 
 Let's introduce how these methods work and get called by _Fluent_ itself:
 
-- `configure(conf)`: it's called before _Fluent_ is getting started, and you'll find it useful if you need to do some preliminary activities as it's getting configurations parameters passed.
+- `configure(conf)`: it's called before _Fluent_ is getting started. You'll find it useful if you need to do some preliminary activities as it's getting configurations parameters passed.
 - `start()`: it's called while _Fluent_ is starting.
 - `shutdown()`: it's called while _Fluent_ is stopping.
-- `emit(tag, es, chain)`: it's called when an event gets trapped by _Fluent_; it's actually the core method of our plugin. Actually this method is called by _Fluent_'s main thread so you should not write slow routines here, as it could cause _Fluent_'s performance degression.
+- `emit(tag, es, chain)`: it's called when an event gets trapped by _Fluent_; it's actually the core method of our plugin. It gets invoked by _Fluent_'s main thread so you should not write slow routines here, as it could cause _Fluent_'s performance degression.
 
   - `tag` input parameter is the log tag that matched with the plugin definition.
   - `es` input parameter is a `Fluent::EventStream` object that includes multiple events: you can use `es.each {|time,record| ... }` to iterate over events.
@@ -253,14 +253,14 @@ Few notes about the previous snippet:
 1. while instanciating the socket with our mysql server, we use the `@@mysql_user`, `@@mysql_password` and `@@mysql_database` class variables, don't forget to add them after class definition.
 2. the query we're doing actually depends on the database schema. In the example provided, we have an `Email` table, containing at least two colums:
 
-  1. `address` (`varchar(255)`): email address string
-  2. `status` (`int(1)`): email address status:
+  1. `address` (`VARCHAR(255)`): email address string
+  2. `status` (`INT(1)`): email address status:
 
-    1. active (if we're getting `sent` as mail sending exit status)
-    2. closed (if we're getting `bounced` as mail sending exit status)
-    3. issues while trying to send (if we're getting `deferred` as mail sending exit status)
+    - `1` active (if we're getting `sent` as mail sending exit status)
+    - `2` closed (if we're getting `bounced` as mail sending exit status)
+    - `3` issues while trying to send (if we're getting `deferred` as mail sending exit status)
 
-Finally, our code will be placed into the _Fluent_ plugins folder, `/etc/td-agent/plugin/fluent-mysql-plugin.rb`, and will contain:
+Finally, our code will be placed into the _Fluent_ plugins folder, `/etc/td-agent/plugin/postfix-to-mysql.rb`, and will contain:
 
 ```ruby
 require 'fluent/output'
