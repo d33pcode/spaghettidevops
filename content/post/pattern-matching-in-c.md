@@ -1,10 +1,15 @@
 +++
-date = "2017-04-21T18:33:36+02:00"
-title = "Pattern matching in c, reinventing the wheel"
+
 author = "bamless"
-type = "post"
-tags = ["programming", "regex", "regular", "expressions", "c"]
+date = "2017-04-21T18:33:36+02:00"
+description = "Implementation of a regex matching algorithm in c"
 draft = false
+keywords = []
+tags = ["programming", "regex", "regular", "expressions", "c"]
+title = "Pattern matching in c, reinventing the wheel"
+topics = []
+type = "post"
+
 +++
 
 The other day I was bored, and I don't know what normal people do when they are bored, but I usually do one thing... code. Actually it all starts with me wondering about some problem, a random problem, then thinking about a solution in my head, and it ends with me implementing it in a random programming language. It all started this way with this little program. I was thinking about how often I use regular expressions every day on my Linux installation, without really knowing how they work. So I decided to get my hands dirty and implement a pattern matching algorithm in c. Now, you might be thinking: "What the hell? the c standard library already provides regex matching algorithms, what are you doing?". As stated in the title, I'm reinventing the wheel. Why am I doing this? Well, apart from boredom, I'm doing this for knowledge's sake. The best way to fully understand something (in the CS world), is to implement it.

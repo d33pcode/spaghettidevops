@@ -1,0 +1,11 @@
+ErrorDocument 404 /404.html
+
+# Caching
+<filesMatch ".(jpg|jpeg|png|gif|ico)$">
+# One year cache limit
+Header set Cache-Control "max-age=31536000, public"
+</filesMatch>
+<filesMatch ".(css|js)$">
+# One month cache limit
+Header set Cache-Control "max-age=2628000, public"
+</filesMatch>

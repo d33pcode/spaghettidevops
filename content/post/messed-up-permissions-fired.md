@@ -1,11 +1,14 @@
 +++
 
-type = "post"
-title = "Messed up permissions. Fired."
-draft = false
 author = "streambinder"
 date = "2017-03-20T15:28:04+01:00"
+description = "Fixing permissions on RPM based linux distributions"
+draft = false
+keywords = []
 tags = ["sysadmin", "server", "linux", "redhat", "permissions", "mailserver"]
+title = "Messed up permissions. Fired."
+topics = []
+type = "post"
 
 +++
 
