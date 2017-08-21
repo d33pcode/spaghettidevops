@@ -49,7 +49,7 @@ def scanPorts(host, ports):
     result=sock.connect_ex((host, int(port)))
     sock.close()
     if result == 0:
-      print '[{0}] Port {1} is open\n'.format(host, port)
+      print('[{0}] Port {1} is open\n'.format(host, port))
 ```
 
 # More hosts and config files
