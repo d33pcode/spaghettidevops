@@ -252,6 +252,7 @@ div.content img {
 
 pre code {
 	white-space: pre !important;
+	font-family: monospace, monospace !important;
 }
 
 h1.title {
