@@ -100,4 +100,6 @@ for tex_variant in *.tex; do
        pdflatex -synctex=1 -interaction=nonstopmode -output-directory=../bin "${tex_lang_variant}" 2>&1 > /dev/null && \
        rm -f "${tex_lang_variant}"
    done
-done```
+done
+```
+
