@@ -65,8 +65,8 @@ done
 
 ## Templating documents
 
-The second part was about applying specific data into generic documents field. I found out a useful tool called `mush` which overrides those ones with the values of the corresponding environment keys.
-Its use is pretty straightforward. Suppose we need to apply several `name` values in the same template document:
+The second part was about applying specific data into generic documents field. I found out a useful tool called `mush` ([jwerle/mush](https://github.com/jwerle/mush)) which overrides those ones with the values of the corresponding environment keys.
+Its use is pretty straightforward. Suppose we need to apply several `name` values in the same template document, if you use the following snippet:
 
 ```bash
 for name in "streambinder" "bamless" "d33pcode" do;
@@ -74,6 +74,14 @@ for name in "streambinder" "bamless" "d33pcode" do;
 Hey, my name is {{name}}!
 EOF | name=${name} mush > document.${name}.txt
 done
+```
+
+You'll get something like this:
+
+```bash
+Hey, my name is streambinder!
+Hey, my name is bamless!
+Hey, my name is d33pcode!
 ```
 
 ## Merging the two concepts
