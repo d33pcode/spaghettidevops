@@ -108,7 +108,7 @@ extensionmask = []
 [Languages]
 [Languages.en]
 weight = 1
-copyright = "(c) 2018. All rights reserved." # TODO: dynamic year evaluation
+copyright = "(c) 2017 - 2019. All rights reserved." # TODO: dynamic year evaluation
 title = "Spaghetti DevOps" # Site title
 
 [[Languages.en.menu.main]]
